@@ -3,7 +3,6 @@
 import { ReactNode, useEffect } from 'react';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
-import AnimatedBrandSection from '@/components/sections/AnimatedBrandSection';
 import PromotionalPopup from '@/components/ui/PromotionalPopup';
 import { initSmoothScrolling } from '@/lib/smoothScroll';
 
@@ -23,7 +22,6 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
         {children}
       </main>
       <Footer />
-      <AnimatedBrandSection />
       <PromotionalPopup />
     </div>
   );

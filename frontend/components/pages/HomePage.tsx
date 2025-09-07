@@ -13,7 +13,6 @@ import NewsletterSection from '@/components/sections/NewsletterSection';
 import CategoryGrid from '@/components/sections/FeaturedProducts';
 import SpotlightSection from '@/components/sections/SpotlightSection';
 import BestsellerSection from '@/components/sections/BestsellerSection';
-import AnimatedBrandSection from '@/components/sections/AnimatedBrandSection';
 import { initSmoothScrolling } from '@/lib/smoothScroll';
 import { LAYOUT_CONSTANTS } from '@/lib/layout';
 
