@@ -67,7 +67,6 @@ frontend/
 ## Key Components
 
 - **HeroSection**: Main landing section with background image and CTA
-- **HorizontalScrollSection**: Interactive horizontal scrolling showcase
 - **BrandLogos**: Animated brand logo carousel
 - **ProductGrid**: Dynamic product display with filtering
 - **ShopSidebar**: Collapsible navigation sidebar

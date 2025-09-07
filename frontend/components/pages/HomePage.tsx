@@ -14,7 +14,6 @@ import CategoryGrid from '@/components/sections/FeaturedProducts';
 import SpotlightSection from '@/components/sections/SpotlightSection';
 import BestsellerSection from '@/components/sections/BestsellerSection';
 import AnimatedBrandSection from '@/components/sections/AnimatedBrandSection';
-import HorizontalScrollSection from '@/components/sections/HorizontalScrollSection';
 import { initSmoothScrolling } from '@/lib/smoothScroll';
 import { LAYOUT_CONSTANTS } from '@/lib/layout';
 
@@ -142,8 +141,6 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroSection isScrolled={isScrolled} />
       
-      {/* Horizontal Scroll Section */}
-      <HorizontalScrollSection />
 
       <BrandLogos />
       <AutoScrollingProducts/>
