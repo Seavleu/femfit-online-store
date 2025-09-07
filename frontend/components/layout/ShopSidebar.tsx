@@ -381,7 +381,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
               {/* Connection indicator */}
               <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-8 bg-gray-200 rounded-r-full opacity-50"></div>
               {/* Animated Header */}
-              <div className="mb-6 sm:mb-8">
+              {/* <div className="mb-6 sm:mb-8">
                 <CurvedLoop 
                   marqueeText={`${hoveredItem.text.toUpperCase()} ✦ COLLECTION ✦`}
                   speed={1.5}
@@ -390,7 +390,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
                   interactive={true}
                   className="text-gray-800"
                 />
-              </div>
+              </div> */}
 
               {/* Sub-items */}
               {hoveredItem.subItems && hoveredItem.subItems.length > 0 && (
