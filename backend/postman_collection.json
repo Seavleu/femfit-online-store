@@ -1,0 +1,78 @@
+{
+  "info": {
+    "name": "FemFit Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Google Init",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/google/init?redirect={{frontendUrl}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","auth","google","init"],
+          "query": [{"key":"redirect","value":"{{frontendUrl}}"}]
+        }
+      }
+    },
+    {
+      "name": "Auth - Google Callback (manual test)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/google/callback?code=PASTE_CODE",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","auth","google","callback"],
+          "query": [{"key":"code","value":"PASTE_CODE"}]
+        }
+      }
+    },
+    {
+      "name": "Auth - Verify",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Cookie", "value": "{{authCookieName}}={{jwt}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/verify",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","auth","verify"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Cookie", "value": "{{authCookieName}}={{jwt}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","auth","profile"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Logout",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/logout",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","auth","logout"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "frontendUrl", "value": "http://localhost:3000" },
+    { "key": "authCookieName", "value": "ff_jwt" },
+    { "key": "jwt", "value": "" }
+  ]
+}
+

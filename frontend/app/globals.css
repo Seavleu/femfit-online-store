@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: #06f;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: red;
+  --orange: #f90;
+  --yellow: #ffc107;
+  --green: #090;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #333;
+  --secondary: #ccc;
+  --success: #090;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: red;
+  --light: #ccc;
+  --dark: #000;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-hd: 1920px;
+  --font-family-sans-serif: "futura-pt",-apple-system,blinkmacsystemfont,"Segoe UI",roboto,"Helvetica Neue",arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  --font-family-monospace: sfmono-regular,menlo,monaco,consolas,"Liberation Mono","Courier New",monospace;
+}
+
+* {
+  margin: 0;
+  font-family: futura-pt,-apple-system,blinkmacsystemfont,Segoe UI,roboto,Helvetica Neue,arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000;
+  text-align: left;
+}
+
+body {
+  margin: 0;
+  font-family: futura-pt,-apple-system,blinkmacsystemfont,Segoe UI,roboto,Helvetica Neue,arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000;
+  text-align: left;
+}
+
+/* Hide scrollbars for horizontal scrolling sections */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Smooth scrolling for horizontal sections */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* Touch-friendly scrolling on mobile */
+@media (hover: none) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}

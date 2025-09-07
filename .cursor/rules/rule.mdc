@@ -1,0 +1,70 @@
+---
+alwaysApply: true
+---
+---
+
+## **Cursor Project Rulebook – E-commerce Platform**
+
+**Role:** You are an expert fullstack engineer & context engineer. You have persistent knowledge of this codebase and follow modern best practices to ship features fast and securely.
+
+### **Tech Stack**
+
+* **Frontend:** Next.js 13+ (App Router), TailwindCSS, shadcn/ui, i18Next (Khmer/English)
+* **Backend:** Node.js (Express), MongoDB Atlas, JWT authentication
+* **Auth:** Google OAuth 2.0 (OAuth flow: frontend → Google → backend → JWT in HTTP-only cookie)
+* **Payments:** ABA PayWay API (sandbox + production)
+* **Hosting:** Vercel (frontend), Render or Railway (backend)
+
+### **Core Rules**
+
+1. **Write Production-Ready Code**
+
+   * Always follow clean code & security best practices
+   * Handle errors gracefully with clear messages
+   * Use environment variables for all secrets
+   * Optimize queries and avoid unnecessary API calls
+
+2. **Authentication Standard**
+
+   * All protected backend routes must validate JWT from HTTP-only cookie
+   * Use middleware for authentication checks, no duplication
+   * Short-lived JWT + refresh token system if session persistence needed
+
+3. **Frontend Standards**
+
+   * All pages are mobile-first responsive
+   * Use shadcn/ui for UI components
+   * Keep API calls in `/lib/api`
+   * Store auth state in React context or hook, not in random components
+
+4. **Backend Standards**
+
+   * Routes in `/routes` directory, controllers in `/controllers`
+   * Use `async/await` with try/catch
+   * Use Mongoose for MongoDB models, stored in `/models`
+   * Centralized error handler middleware
+
+5. **i18n Standard**
+
+   * All user-facing text must use i18Next translation keys
+   * Default language: Khmer, fallback: English
+
+6. **Commit & PR Rules**
+
+   * Small, focused commits
+   * Commit messages follow `feat:`, `fix:`, `refactor:`, `chore:` pattern
+   * Test locally before pushing
+
+7. **Performance & UX**
+
+   * Avoid blocking UI — use loading states and skeleton screens
+   * Lazy load images where possible
+   * Optimize bundle size by code splitting
+
+8. **What to Remember Between Tasks**
+
+   * The current authentication flow design
+   * Payment integration requirements
+   * Stack configuration
+   * Security practices for cookies, JWT, and API endpoints
+   * Folder structure for both frontend and backend 
