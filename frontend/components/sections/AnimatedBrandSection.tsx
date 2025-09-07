@@ -47,6 +47,9 @@ const AnimatedBrandSection = () => {
 
   useEffect(() => {
     if (!spacing || !ready) return;
+    
+    console.log('Starting animation with spacing:', spacing, 'ready:', ready);
+    
     let frame = 0;
     const step = () => {
       if (textPathRef.current) {
@@ -71,17 +74,34 @@ const AnimatedBrandSection = () => {
       style={{ visibility: ready ? 'visible' : 'hidden' }}
     >
       <svg className="curved-loop-svg" viewBox="0 0 1440 120">
-        <text ref={measureRef} xmlSpace="preserve" style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+        <text ref={measureRef} xmlSpace="preserve" style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none', fill: '#ffffff' }}>
           {text}
         </text>
         <defs>
           <path ref={pathRef} id={pathId} d={pathD} fill="none" stroke="transparent" />
         </defs>
-        {ready && (
-          <text fontWeight="bold" xmlSpace="preserve" className="font-bold font-futura-pt tracking-[-0.07em] leading-[90%] text-white">
+        {ready ? (
+          <text 
+            fontWeight="bold" 
+            xmlSpace="preserve" 
+            className="font-bold font-futura-pt tracking-[-0.07em] leading-[90%]"
+            style={{ fill: '#ffffff' }}
+          >
             <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
               {totalText}
             </textPath>
+          </text>
+        ) : (
+          <text 
+            fontWeight="bold" 
+            xmlSpace="preserve" 
+            className="font-bold font-futura-pt tracking-[-0.07em] leading-[90%]"
+            style={{ fill: '#ffffff' }}
+            x="720"
+            y="60"
+            textAnchor="middle"
+          >
+            {marqueeText}
           </text>
         )}
       </svg>

@@ -96,13 +96,21 @@ body {
   overflow: visible;
   display: block;
   font-size: 6rem;
-  fill: #ffffff;
+  fill: #ffffff !important;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
+}
+
+.curved-loop-svg text {
+  fill: #ffffff !important;
+}
+
+.curved-loop-svg textPath {
+  fill: #ffffff !important;
 }
 
 /* Responsive font sizes for curved loop */
