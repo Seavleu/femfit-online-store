@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import HeroSection from '@/components/layout/HeroSection';
 import BrandLogos from '@/components/sections/BrandLogos';
 import RecommendationsSection from '@/components/sections/RecommendationsSection';
@@ -15,6 +16,10 @@ import SpotlightSection from '@/components/sections/SpotlightSection';
 import BestsellerSection from '@/components/sections/BestsellerSection';
 import { initSmoothScrolling } from '@/lib/smoothScroll';
 import { LAYOUT_CONSTANTS } from '@/lib/layout';
+import { animation } from '@/motion';
+import ScrollAnimation from '@/components/ui/ScrollAnimation';
+import Curve from '@/components/Curve/Curve';
+import Marquee from '@/components/Marquee';
 
 // Mock data for bestseller sections
 const bestsellerBags = [
@@ -119,6 +124,12 @@ export default function HomePage() {
   useEffect(() => {
     initSmoothScrolling();
     
+    // Initialize Locomotive Scroll
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      const locomotiveScroll = new LocomotiveScroll();
+    })();
+    
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
@@ -133,37 +144,83 @@ export default function HomePage() {
     // Add to cart logic here
   };
 
-  return (
-    <div className="bg-white text-black overflow-x-hidden">
-      
-      
-      {/* Hero Section */}
-      <HeroSection isScrolled={isScrolled} />
-      
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
 
-      <BrandLogos />
-      <AutoScrollingProducts/>
-      <RecommendationsSection />
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  return (
+    <Curve backgroundColor="#f1f1f1">
+      {/* Hero Section */}
+      <div className="relative">
+        <HeroSection isScrolled={isScrolled} />
+        
+        {/* Marquee Section - Overlapping Hero */}
+        {/* <div className="absolute bottom-0 left-0 w-full bg-black z-20 rounded-t-[20px] py-8 -mb-8">
+          <Marquee
+            title="new products arrival"
+            className="pb-[50px] lg:pb-[40px] md:pb-[30px] sm:pb-[20px] text-[540px] leading-[330px] lg:text-[380px] lg:leading-[240px] md:text-[300px] md:leading-[160px] sm:text-[230px] sm:leading-[140px] xm:text-[130px] xm:leading-[80px]"
+          />
+        </div> */}
+      </div>
+      
+      {/* Scroll-Triggered Animated Sections */}
+      <ScrollAnimation direction="up" delay={0.1}>
+        <BrandLogos />
+      </ScrollAnimation>
+      
+      <ScrollAnimation direction="up" delay={0.2}>
+        <AutoScrollingProducts/>
+      </ScrollAnimation>
+      
+      <ScrollAnimation direction="up" delay={0.3}>
+        <RecommendationsSection />
+      </ScrollAnimation>
+      
         
       <div className="space-y-2.5">
-        <SpotlightSection />
+        <ScrollAnimation direction="up" delay={0.4}>
+          <SpotlightSection />
+        </ScrollAnimation>
         
         {/* Bestseller: Bags Section */}
-        <BestsellerSection 
-          title="Bestseller: Bags" 
-          products={bestsellerBags}
-          onAddToCart={handleAddToCart}
-        />
+        <ScrollAnimation direction="up" delay={0.5}>
+          <BestsellerSection 
+            title="Bestseller: Bags" 
+            products={bestsellerBags}
+            onAddToCart={handleAddToCart}
+          />
+        </ScrollAnimation>
         
         {/* Bestseller: Shoes Section */}
-        <BestsellerSection 
-          title="Bestseller: Shoes" 
-          products={bestsellerShoes}
-          onAddToCart={handleAddToCart}
-        />
+        <ScrollAnimation direction="up" delay={0.6}>
+          <BestsellerSection 
+            title="Bestseller: Shoes" 
+            products={bestsellerShoes}
+            onAddToCart={handleAddToCart}
+          />
+        </ScrollAnimation>
         
         {/* <CategoryShowcase /> */}
       </div>
-    </div>
+    </Curve>
   );
 }

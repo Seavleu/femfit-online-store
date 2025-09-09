@@ -64,31 +64,46 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       id: '2',
       name: 'Devan Side-Zip Rigid-Sole Calf Boots - Black',
       price: '₩135,900',
-      image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop'
+      image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop',
+      images: ['https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop'],
+      colors: ['Black'],
+      sizes: ['36', '37', '38', '39', '40']
     },
     {
       id: '3',
       name: 'Gael Studded Convertible Kitten-Heel Knee-High Boots - Black',
       price: '₩165,900',
-      image: 'https://images.unsplash.com/photo-1608256246200-53e8b6d1a46f?w=400&h=500&fit=crop'
+      image: 'https://images.unsplash.com/photo-1608256246200-53e8b6d1a46f?w=400&h=500&fit=crop',
+      images: ['https://images.unsplash.com/photo-1608256246200-53e8b6d1a46f?w=400&h=500&fit=crop'],
+      colors: ['Black'],
+      sizes: ['36', '37', '38', '39', '40']
     },
     {
       id: '4',
       name: 'Braided-Strap Back-Zip Knee-High Boots - Black',
       price: '₩159,900',
-      image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=500&fit=crop'
+      image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=500&fit=crop',
+      images: ['https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=500&fit=crop'],
+      colors: ['Black'],
+      sizes: ['36', '37', '38', '39', '40']
     },
     {
       id: '5',
       name: 'Contrast-Trim Buckle-Strap Mary Jane - Black',
       price: '₩85,900',
-      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop'
+      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop',
+      images: ['https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop'],
+      colors: ['Black'],
+      sizes: ['36', '37', '38', '39', '40']
     },
     {
       id: '6',
       name: 'Linden Side-Zip Buckle-Strap Ankle Boots - Black',
       price: '₩139,900',
-      image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop'
+      image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop',
+      images: ['https://images.unsplash.com/photo-1544966503-7cc5ac882d5e?w=400&h=500&fit=crop'],
+      colors: ['Black'],
+      sizes: ['36', '37', '38', '39', '40']
     }
   ];
 

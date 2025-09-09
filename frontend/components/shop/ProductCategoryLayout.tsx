@@ -221,8 +221,8 @@ export default function ProductCategoryLayout({
                   viewMode === 'grid' ? "aspect-square" : "w-48 h-48 flex-shrink-0"
                 )}>
                   <ImagePlaceholder
-                    width="100%"
-                    height="100%"
+                    width={400}
+                    height={300}
                     className="w-full h-full group-hover:scale-105 transition-transform duration-300"
                     gradient={categoryGradients[category as keyof typeof categoryGradients] || 'from-gray-200 to-gray-300'}
                   >

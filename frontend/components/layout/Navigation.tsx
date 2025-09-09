@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Menu, X, User, Search, Heart, ShoppingBag, Bell } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LinkHover from '@/animation/LinkHover';
+import TextHover from '@/animation/TextHover';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CartDrawer from '@/components/cart/CartDrawer';
@@ -232,16 +234,21 @@ const Navigation = React.memo(function Navigation() {
                       {item.name}
                     </button>
                   ) : (
-                    <Link
-                      href={item.href}
-                      className="nav-text text-sm font-light transition-all duration-300 tracking-wide relative hover:opacity-80"
-                      style={{ color: '#ffffff' }}
-                    >
-                      {item.name}
+                    <div className="relative">
+                      <Link
+                        href={item.href}
+                        className="nav-text text-sm font-light transition-all duration-300 tracking-wide relative hover:opacity-80"
+                        style={{ color: '#ffffff' }}
+                      >
+                        <TextHover
+                          titile1={item.name}
+                          titile2={item.name}
+                        />
+                      </Link>
                       {pathname === item.href && (
                         <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-current" />
                       )}
-                    </Link>
+                    </div>
                   )}
                 </div>
               ))}
@@ -249,18 +256,28 @@ const Navigation = React.memo(function Navigation() {
             
             {/* Center Logo - Only shows when scrolled */}
             <div className="flex-shrink-0">
-              <Link href="/">
-                <div 
-                  ref={logoRef}
-                  className="nav-text font-light tracking-wider transition-all duration-400 opacity-0"
+              <div 
+                ref={logoRef}
+                className="nav-text font-light tracking-wider transition-all duration-400 opacity-0"
+                style={{ 
+                  color: '#ffffff',
+                  fontSize: '0.875rem',
+                }}
+              >
+                <Link
+                  href="/"
+                  className="nav-text font-light tracking-wider transition-all duration-400"
                   style={{ 
                     color: '#ffffff',
                     fontSize: '0.875rem',
                   }}
                 >
-                  FEM & FIT
-                </div>
-              </Link>
+                  <TextHover
+                    titile1="FEM & FIT"
+                    titile2="FEM & FIT"
+                  />
+                </Link>
+              </div>
             </div>
 
             {/* Right Side Icons */}
@@ -333,7 +350,10 @@ const Navigation = React.memo(function Navigation() {
                 className="menu-item text-2xl font-bold tracking-wide hover:text-gray-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.name}
+                <TextHover
+                  titile1={item.name}
+                  titile2={item.name}
+                />
               </Link>
             )
           ))}
@@ -344,7 +364,10 @@ const Navigation = React.memo(function Navigation() {
                 className="block text-xl font-medium hover:text-gray-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Profile
+                <TextHover
+                  titile1="Profile"
+                  titile2="Profile"
+                />
               </Link>
             </div>
           ) : (
@@ -353,7 +376,10 @@ const Navigation = React.memo(function Navigation() {
               className="menu-item p-2 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              <User className="w-6 h-6" />
+              <TextHover
+                titile1="Sign In"
+                titile2="Sign In"
+              />
             </Link>
           )}
         </div>
@@ -362,19 +388,21 @@ const Navigation = React.memo(function Navigation() {
       {/* Large Logo Below Navbar - Only shows on home page when not scrolled */}
       {isHomePage && (
         <div className="fixed left-1/2 transform -translate-x-1/3 z-10 transition-all duration-400" style={{ top: isPromoBarVisible ? '130px' : '92px' }}>
-          <Link href="/">
-            <div 
-              className={cn(
-                "text-white font-futura-bold tracking-wider transition-all duration-400",
-                isScrolled ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
-              )}
-              style={{ 
-                fontSize: '1.8rem',
-                textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-              }}
-            >
-              FEM & FIT
-            </div>
+          <Link
+            href="/"
+            className={cn(
+              "text-white font-futura-bold tracking-wider transition-all duration-400",
+              isScrolled ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
+            )}
+            style={{ 
+              fontSize: '1.8rem',
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}
+          >
+            <TextHover
+              titile1="FEM & FIT"
+              titile2="FEM & FIT"
+            />
           </Link>
         </div>
       )}

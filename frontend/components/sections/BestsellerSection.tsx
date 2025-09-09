@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import Link from 'next/link';
+import LinkHover from '@/animation/LinkHover';
 import { cn } from '@/lib/utils';
 import { LAYOUT_CONSTANTS } from '@/lib/layout';
 

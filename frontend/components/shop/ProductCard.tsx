@@ -5,6 +5,7 @@ import { Eye, ShoppingCart, Heart, Star, TrendingUp, Clock, Zap } from 'lucide-r
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import LinkHover from '@/animation/LinkHover';
 import { cn } from '@/lib/utils';
 import { useCart, Product } from '@/contexts/CartContext';
 import { formatPrice } from '@/lib/currency';
@@ -132,13 +133,13 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
 
           {/* Quick Actions */}
           <div className="absolute top-3 right-3 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Link
+            <LinkHover
               href={`/shop/${product.id}`}
-              className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-luxury-gold hover:text-white transition-colors shadow-lg"
               title="Quick View"
+              className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-luxury-gold hover:text-white transition-colors shadow-lg"
             >
               <Eye className="w-4 h-4" />
-            </Link>
+            </LinkHover>
             <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-red-500 hover:text-white transition-colors shadow-lg">
               <Heart className="w-4 h-4" />
             </button>
@@ -191,12 +192,13 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
           </div>
           
           <div className="flex items-center space-x-4">
-            <Link
+            <LinkHover
               href={`/shop/${product.id}`}
+              title="View Details"
               className="flex-1 bg-black text-white px-6 py-3 font-medium text-center hover:bg-luxury-gold hover:text-black transition-colors duration-300 rounded-lg"
             >
               View Details
-            </Link>
+            </LinkHover>
             <button 
               onClick={handleAddToCart}
               className="p-3 border border-gray-200 rounded-full hover:border-luxury-gold hover:bg-luxury-gold hover:text-white transition-colors"
@@ -255,13 +257,14 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
         {/* Overlay with Quick Actions */}
         <div className="product-overlay absolute inset-0 bg-black/30 opacity-0 flex items-center justify-center transition-opacity duration-300">
           <div className="quick-actions flex space-x-4 translate-y-5 opacity-0 transition-all duration-300">
-            <Link
+            <LinkHover
               href={`/shop/${product.id}`}
+              title="Quick View"
               className="bg-white/90 backdrop-blur-sm text-black px-6 py-3 font-medium hover:bg-luxury-gold hover:text-white transition-all duration-300 flex items-center space-x-2 rounded-full"
             >
               <Eye className="w-4 h-4" />
               <span>Quick View</span>
-            </Link>
+            </LinkHover>
           </div>
         </div>
         
@@ -321,12 +324,13 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
             </div>
             <p className="text-xs text-gray-500">{formatPrice(product.price, 'KHR')}</p>
           </div>
-          <Link
+          <LinkHover
             href={`/shop/${product.id}`}
+            title="View Details →"
             className="text-sm font-medium text-black hover:text-luxury-gold transition-colors duration-300"
           >
             View Details →
-          </Link>
+          </LinkHover>
         </div>
       </div>
     </div>

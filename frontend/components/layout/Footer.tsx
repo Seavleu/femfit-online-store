@@ -1,6 +1,7 @@
 'use client';
 import React, { FormEvent, useRef, useState } from 'react';
 import Link from 'next/link';
+import LinkHover from '@/animation/LinkHover';
 
 const Footer = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -70,17 +71,17 @@ const Footer = () => {
       <div className='border-t border-gray-200'>
         <div className='sm:container px-4 mx-auto'>
           <div className='flex flex-wrap items-center justify-center py-4 space-x-6 text-sm font-medium'>
-            <Link href='/new-products' className='hover:text-gray-600'>NEW PRODUCTS</Link>
+            <LinkHover href='/new-products' title='NEW PRODUCTS' className='hover:text-gray-600' />
             <div className='w-px h-4 bg-gray-300'></div>
-            <Link href='/shoes' className='hover:text-gray-600'>SHOES</Link>
+            <LinkHover href='/shoes' title='SHOES' className='hover:text-gray-600' />
             <div className='w-px h-4 bg-gray-300'></div>
-            <Link href='/bags' className='hover:text-gray-600'>BAGS</Link>
+            <LinkHover href='/bags' title='BAGS' className='hover:text-gray-600' />
             <div className='w-px h-4 bg-gray-300'></div>
-            <Link href='/wallet' className='hover:text-gray-600'>WALLET</Link>
+            <LinkHover href='/wallet' title='WALLET' className='hover:text-gray-600' />
             <div className='w-px h-4 bg-gray-300'></div>
-            <Link href='/accessories' className='hover:text-gray-600'>ACCESSORIES</Link>
+            <LinkHover href='/accessories' title='ACCESSORIES' className='hover:text-gray-600' />
             <div className='w-px h-4 bg-gray-300'></div>
-            <Link href='/recommendations' className='hover:text-gray-600'>RECOMMENDATIONS FOR YOU</Link>
+            <LinkHover href='/recommendations' title='RECOMMENDATIONS FOR YOU' className='hover:text-gray-600' />
           </div>
         </div>
       </div>
@@ -93,14 +94,14 @@ const Footer = () => {
             <div>
               <h3 className='font-bold text-black text-sm mb-4 tracking-wide'>NEED HELP?</h3>
               <ul className='space-y-2'>
-                <li><Link href='/order-inquiry' className='text-sm text-gray-600 hover:text-black'>Order Inquiry</Link></li>
-                <li><Link href='/faq' className='text-sm text-gray-600 hover:text-black'>Frequently Asked Questions</Link></li>
-                <li><Link href='/contact' className='text-sm text-gray-600 hover:text-black'>Contact Us</Link></li>
-                <li><Link href='/fraud-prevention' className='text-sm text-gray-600 hover:text-black'>Fraud Prevention</Link></li>
-                <li><Link href='/privilege-membership' className='text-sm text-gray-600 hover:text-black'>Privilege Membership</Link></li>
-                <li><Link href='/shipping-tracking' className='text-sm text-gray-600 hover:text-black'>Shipping and Tracking</Link></li>
-                <li><Link href='/returns-exchanges' className='text-sm text-gray-600 hover:text-black'>Returns and Exchanges</Link></li>
-                <li><Link href='/size-guide' className='text-sm text-gray-600 hover:text-black'>Size Guide</Link></li>
+                <li><LinkHover href='/order-inquiry' title='Order Inquiry' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/faq' title='Frequently Asked Questions' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/contact' title='Contact Us' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/fraud-prevention' title='Fraud Prevention' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/privilege-membership' title='Privilege Membership' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/shipping-tracking' title='Shipping and Tracking' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/returns-exchanges' title='Returns and Exchanges' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/size-guide' title='Size Guide' className='text-sm text-gray-600 hover:text-black' /></li>
               </ul>
             </div>
 
@@ -108,12 +109,12 @@ const Footer = () => {
             <div>
               <h3 className='font-bold text-black text-sm mb-4 tracking-wide'>ABOUT US</h3>
               <ul className='space-y-2'>
-                <li><Link href='/brand-profile' className='text-sm text-gray-600 hover:text-black'>Brand Profile</Link></li>
-                <li><Link href='/femfit-group' className='text-sm text-gray-600 hover:text-black'>FEMFIT GROUP</Link></li>
-                <li><Link href='/sustainability' className='text-sm text-gray-600 hover:text-black'>Sustainable Management</Link></li>
-                <li><Link href='/influence-program' className='text-sm text-gray-600 hover:text-black'>Influence Program</Link></li>
-                <li><Link href='/franchise-inquiry' className='text-sm text-gray-600 hover:text-black'>Franchise Inquiry</Link></li>
-                <li><Link href='/partnership-inquiry' className='text-sm text-gray-600 hover:text-black'>Partnership Inquiry</Link></li>
+                <li><LinkHover href='/brand-profile' title='Brand Profile' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/femfit-group' title='FEMFIT GROUP' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/sustainability' title='Sustainable Management' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/influence-program' title='Influence Program' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/franchise-inquiry' title='Franchise Inquiry' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/partnership-inquiry' title='Partnership Inquiry' className='text-sm text-gray-600 hover:text-black' /></li>
               </ul>
             </div>
 
@@ -121,10 +122,10 @@ const Footer = () => {
             <div>
               <h3 className='font-bold text-black text-sm mb-4 tracking-wide'>SHOPPING WITH US</h3>
               <ul className='space-y-2'>
-                <li><Link href='/store-location' className='text-sm text-gray-600 hover:text-black'>Store location</Link></li>
-                <li><Link href='/ambassador' className='text-sm text-gray-600 hover:text-black'>Ambassador</Link></li>
-                <li><Link href='/fashion-guide' className='text-sm text-gray-600 hover:text-black'>Fashion Guide</Link></li>
-                <li><Link href='/promotion' className='text-sm text-gray-600 hover:text-black'>Promotion</Link></li>
+                <li><LinkHover href='/store-location' title='Store location' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/ambassador' title='Ambassador' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/fashion-guide' title='Fashion Guide' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/promotion' title='Promotion' className='text-sm text-gray-600 hover:text-black' /></li>
               </ul>
             </div>
 
@@ -132,9 +133,9 @@ const Footer = () => {
             <div>
               <h3 className='font-bold text-black text-sm mb-4 tracking-wide'>LEGAL</h3>
               <ul className='space-y-2'>
-                <li><Link href='/terms' className='text-sm text-gray-600 hover:text-black'>Terms of Use</Link></li>
-                <li><Link href='/privacy' className='text-sm text-gray-600 hover:text-black'>Privacy Policy</Link></li>
-                <li><Link href='/cookies' className='text-sm text-gray-600 hover:text-black'>Cookie Policy</Link></li>
+                <li><LinkHover href='/terms' title='Terms of Use' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/privacy' title='Privacy Policy' className='text-sm text-gray-600 hover:text-black' /></li>
+                <li><LinkHover href='/cookies' title='Cookie Policy' className='text-sm text-gray-600 hover:text-black' /></li>
               </ul>
             </div>
 

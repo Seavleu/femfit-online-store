@@ -413,7 +413,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
                       <ChevronRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       </button>
                   ))}
-                </div>
+              </div>
               )}
 
               {/* Product Image Preview */}
@@ -451,7 +451,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
           </div>
 
               {/* Additional Curved Animation */}
-              <div className="mt-8">
+              {/* <div className="mt-8">
                 <CurvedLoop 
                   marqueeText="EXPLORE ✦ SHOP ✦ DISCOVER ✦"
                   speed={2}
@@ -460,7 +460,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
                   interactive={false}
                   className="text-gray-800"
                 />
-              </div>
+              </div> */}
             </div>
           )}
           </div>

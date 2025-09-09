@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import LinkHover from '@/animation/LinkHover';
 import { cn } from '@/lib/utils';
 import { LAYOUT_CONSTANTS } from '@/lib/layout';
 
@@ -107,7 +108,7 @@ export default function SpotlightSection() {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {spotlightItems.map((item) => (
-            <Link
+            <LinkHover
               key={item.id}
               href={item.href}
               className="flex-shrink-0 w-80 group cursor-pointer snap-start"
@@ -133,7 +134,7 @@ export default function SpotlightSection() {
                   </p>
                 )}
               </div>
-            </Link>
+            </LinkHover>
           ))}
         </div>
       </div>

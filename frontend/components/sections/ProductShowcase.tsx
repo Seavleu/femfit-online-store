@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Eye, ShoppingCart } from 'lucide-react';
+import AnimatedButton from '@/components/AnimatedButton';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -140,9 +141,12 @@ export default function ProductShowcase() {
                 </p>
                 <div className="flex items-center justify-between pt-2">
                   <p className="text-lg font-space-grotesk font-bold tracking-wider">{product.price}</p>
-                  <button className="text-sm font-medium text-black hover:text-luxury-gold transition-colors duration-300 tracking-wide">
-                    View Details →
-                  </button>
+                  <AnimatedButton 
+                    href={`/products/${product.id}`}
+                    title="View Details"
+                    variant="primary"
+                    size="sm"
+                  />
                 </div>
               </div>
             </div>

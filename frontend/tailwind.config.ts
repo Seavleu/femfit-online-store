@@ -107,6 +107,7 @@ const config: Config = {
         'zoom-out': 'zoom-out 8s ease-out forwards',
       },
       screens: {
+        'xm': '375px',
         'xs': '475px',
         'sm': '640px',
         'md': '768px',

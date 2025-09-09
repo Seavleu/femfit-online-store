@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import Link from 'next/link';
+import LinkHover from '@/animation/LinkHover';
 import { cn } from '@/lib/utils';
 import { LAYOUT_CONSTANTS, RESPONSIVE } from '@/lib/layout';
 
@@ -280,7 +281,7 @@ export default function CategoryShowcase() {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {spotlightItems.map((item) => (
-            <Link
+            <LinkHover
                 key={item.id}
                 href={item.href}
                 className="flex-shrink-0 w-80 group cursor-pointer"
@@ -297,8 +298,8 @@ export default function CategoryShowcase() {
                     <h5 className="text-lg font-semibold text-black">{item.title}</h5>
                   </div>
                 </div>
-              </Link>
-                  ))}
+              </LinkHover>
+            ))}
                 </div>
               </div>
       </section>
@@ -330,13 +331,13 @@ export default function CategoryShowcase() {
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {featuredProducts.map((product) => (
-              <Link
+              <LinkHover
                 key={product.id}
                 href={product.href}
                 className="flex-shrink-0 w-64"
               >
                 <ProductGridItem product={product} />
-          </Link>
+          </LinkHover>
             ))}
           </div>
         </div>

@@ -8,7 +8,7 @@ interface SimilarProduct {
   id: string;
   name: string;
   price: string;
-  image: string;
+  images: string[];
 }
 
 interface SimilarProductsProps {
@@ -60,7 +60,7 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
               <div className="group cursor-pointer">
                 <div className="aspect-[3/4] mb-4 overflow-hidden bg-gray-100">
                   <img
-                    src={product.image}
+                    src={product.images[0]}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />

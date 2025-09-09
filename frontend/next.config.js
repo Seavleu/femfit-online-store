@@ -15,6 +15,38 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  outputFileTracingRoot: __dirname,
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+      };
+    }
+    
+    // Optimize chunk loading
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: -10,
+            chunks: 'all',
+          },
+        },
+      },
+    };
+    
+    return config;
+  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'gsap'],

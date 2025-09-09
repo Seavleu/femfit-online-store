@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
 import Link from 'next/link';
+import gsap from 'gsap';
+import LinkHover from '@/animation/LinkHover';
+import Button from '@/components/Button';
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -110,23 +112,24 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </h3>
             <div className="space-y-4">
               {collections.map((collection, index) => (
-                <Link
+                <div
                   key={collection.name}
-                  href={`/shop?tags=${collection.tag}`}
                   className="mega-menu-item block group"
                 >
                   <div className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:border-luxury-gold transition-colors">
                     <div>
-                      <h4 className="font-space-grotesk font-medium group-hover:text-luxury-gold transition-colors">
-                        {collection.name}
-                      </h4>
+                      <LinkHover
+                        href={`/shop?tags=${collection.tag}`}
+                        title={collection.name}
+                        className="font-space-grotesk font-medium group-hover:text-luxury-gold transition-colors block"
+                      />
                       <span className="text-xs text-gray-500 uppercase tracking-wider">
                         {collection.tag}
                       </span>
                     </div>
                     <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-luxury-gold group-hover:translate-x-1 transition-all" />
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
 
@@ -136,13 +139,10 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               <p className="text-sm text-gray-600 mb-4">
                 Discover our signature collection of handcrafted luxury pieces.
               </p>
-              <Link
+              <Button
                 href="/shop?tags=Popular"
-                className="inline-flex items-center space-x-2 text-sm font-medium text-luxury-gold hover:text-black transition-colors"
-              >
-                <span>Shop Now</span>
-                <ArrowRight className="w-3 h-3" />
-              </Link>
+                title="Shop Now"
+              />
             </div>
           </div>
         </div>

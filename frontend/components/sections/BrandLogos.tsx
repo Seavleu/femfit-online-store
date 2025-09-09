@@ -28,16 +28,16 @@ export default function BrandLogos() {
       logo: "https://logos-world.net/wp-content/uploads/2020/04/Puma-Logo.png",
       alt: "Puma Logo"
     },
-    { 
-      name: "LULULEMON", 
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/Lululemon-Logo.png",
-      alt: "Lululemon Logo"
-    },
-    { 
-      name: "NBA", 
-      logo: "https://logos-world.net/wp-content/uploads/2020/04/air-jordan-logo.png",
-      alt: "NBA Logo"
-    },
+    // { 
+    //   name: "LULULEMON", 
+    //   logo: "https://logos-world.net/wp-content/uploads/2020/04/Lululemon-Logo.png",
+    //   alt: "Lululemon Logo"
+    // },
+    // { 
+    //   name: "NBA", 
+    //   logo: "https://logos-world.net/wp-content/uploads/2020/04/air-jordan-logo.png",
+    //   alt: "NBA Logo"
+    // },
   ];
 
   useEffect(() => {
