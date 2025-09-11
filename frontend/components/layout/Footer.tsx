@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <>
       {/* Top Information Bar */}
-      <div className='bg-gray-100 py-2.5 mt-2.5'>
+      <div className='bg-white py-2.5 mt-2.5'>
         <div className='sm:container px-4 mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             <div className='flex items-center space-x-3'>

@@ -183,7 +183,7 @@ export default function ProductCategoryLayout({
                   onClick={() => setViewMode('grid')}
                   className={cn(
                     "p-2 rounded-md transition-colors",
-                    viewMode === 'grid' ? "bg-pink-500 text-white" : "bg-white text-gray-600 hover:bg-gray-100"
+                    viewMode === 'grid' ? "bg-pink-500 text-white" : "bg-white text-gray-600 hover:bg-gray-50"
                   )}
                 >
                   <Grid className="w-4 h-4" />
@@ -192,7 +192,7 @@ export default function ProductCategoryLayout({
                   onClick={() => setViewMode('list')}
                   className={cn(
                     "p-2 rounded-md transition-colors",
-                    viewMode === 'list' ? "bg-pink-500 text-white" : "bg-white text-gray-600 hover:bg-gray-100"
+                    viewMode === 'list' ? "bg-pink-500 text-white" : "bg-white text-gray-600 hover:bg-gray-50"
                   )}
                 >
                   <List className="w-4 h-4" />

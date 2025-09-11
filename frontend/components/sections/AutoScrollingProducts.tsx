@@ -118,7 +118,7 @@ export default function CategoryGrid() {
   const duplicatedCategories = [...categories, ...categories];
 
   return (
-    <section className="py-2.5 bg-gray-50 overflow-hidden">
+    <section className="py-2.5 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Grid View */}
                  <div className="block md:hidden">
@@ -130,7 +130,7 @@ export default function CategoryGrid() {
                 className="group block"
                 style={{ height: '423px' }}
               >
-                <div className="relative w-full h-full overflow-hidden bg-neutral-50 transition-all duration-300 border-2 border-transparent group-hover:border-black">
+                <div className="relative w-full h-full overflow-hidden bg-white transition-all duration-300 border-2 border-transparent group-hover:border-black">
                   <img
                     src={category.image}
                     alt={category.name}

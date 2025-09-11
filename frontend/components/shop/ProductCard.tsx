@@ -96,7 +96,7 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative w-full sm:w-48 h-64 sm:h-48 overflow-hidden rounded-xl bg-gray-100 flex-shrink-0">
+        <div className="relative w-full sm:w-48 h-64 sm:h-48 overflow-hidden rounded-xl bg-white flex-shrink-0">
           <img
             src={product.image}
             alt={product.name}
@@ -219,7 +219,7 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6 rounded-xl">
+      <div className="relative aspect-[3/4] overflow-hidden bg-white mb-6 rounded-xl">
         <img
           src={product.image}
           alt={product.name}

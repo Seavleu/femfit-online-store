@@ -50,7 +50,7 @@ export class ChunkErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       if (this.state.isChunkError) {
         return (
-          <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="min-h-screen flex items-center justify-center bg-white">
             <div className="text-center p-8">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Loading Application...</h2>
@@ -84,7 +84,7 @@ export class ChunkErrorBoundary extends Component<Props, State> {
                 <summary className="cursor-pointer text-sm text-gray-500">
                   Error Details (Development)
                 </summary>
-                <pre className="mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto">
+                <pre className="mt-2 p-4 bg-gray-50 rounded text-xs overflow-auto">
                   {this.state.error.stack}
                 </pre>
               </details>

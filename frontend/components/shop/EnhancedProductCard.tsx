@@ -60,7 +60,7 @@ export default function EnhancedProductCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Product Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+      <div className="relative aspect-[3/4] overflow-hidden bg-white">
         <img
           src={product.image}
           alt={product.name}

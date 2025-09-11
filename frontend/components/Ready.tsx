@@ -63,7 +63,7 @@ export default function Ready() {
 			<motion.div
 				className="w-full absolute top-[50%] transform translate-y-[-50%] gap-[30px] flex items-center justify-center"
 				style={{ y: mq }}>
-				<div className="w-[200px] h-[200px] md:w-[170px] md:h-[170px] sm:w-[150px] sm:h-[150px] xm:w-[150px] xm:h-[150px] sm:flex-col xm:flex-col bg-gray-200 rounded-full flex items-center justify-center">
+				<div className="w-[200px] h-[200px] md:w-[170px] md:h-[170px] sm:w-[150px] sm:h-[150px] xm:w-[150px] xm:h-[150px] sm:flex-col xm:flex-col bg-white rounded-full flex items-center justify-center">
 					<span className="text-4xl">👁️</span>
 				</div>
 			</motion.div>

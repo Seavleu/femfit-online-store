@@ -320,7 +320,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
             <div className="flex items-center justify-end p-4">
           <button
             onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 rounded-lg transition-colors duration-200"
           >
                 <X className="w-5 h-5 text-gray-600" />
           </button>
@@ -405,7 +405,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
                         router.push(subItem.href);
                         onClose();
                       }}
-                      className="w-full h-[35px] flex items-center text-left px-3 sm:px-4 text-[16px] sm:text-[18px] font-futura font-thin text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-all duration-200 group border border-transparent hover:border-gray-200"
+                      className="w-full h-[35px] flex items-center text-left px-3 sm:px-4 text-[16px] sm:text-[18px] font-futura font-thin text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-all duration-200 group border border-transparent hover:border-gray-200"
                     >
                       <span className="group-hover:translate-x-2 transition-transform duration-200">
                         {subItem.name}
@@ -421,7 +421,7 @@ export default function ShopSidebar({ isOpen, onClose }: ShopSidebarProps) {
                 <h4 className="text-xs font-medium uppercase mb-4 text-gray-500 tracking-widest">
                   FEATURED
                 </h4>
-                <div className="relative w-full h-48 sm:h-56 rounded-lg overflow-hidden group cursor-pointer bg-gray-100"
+                <div className="relative w-full h-48 sm:h-56 rounded-lg overflow-hidden group cursor-pointer bg-white"
                      onClick={() => {
                        router.push(hoveredItem.link);
                        onClose();

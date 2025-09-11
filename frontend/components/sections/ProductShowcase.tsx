@@ -112,7 +112,7 @@ export default function ProductShowcase() {
               className="group cursor-pointer relative md:snap-start md:flex-shrink-0"
             >
               {/* Product Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-6 group">
+              <div className="relative aspect-[3/4] overflow-hidden bg-white mb-6 group">
                 <img
                   src={product.image}
                   alt={product.name}

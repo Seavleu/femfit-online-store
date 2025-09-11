@@ -88,14 +88,14 @@ export default function SpotlightSection() {
             <button
               onClick={scrollLeft}
               disabled={currentIndex === 0}
-              className="p-2 hover:bg-gray-100 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-gray-50 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollRight}
               disabled={currentIndex >= spotlightItems.length - 3}
-              className="p-2 hover:bg-gray-100 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-gray-50 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -113,7 +113,7 @@ export default function SpotlightSection() {
               href={item.href}
               className="flex-shrink-0 w-80 group cursor-pointer snap-start"
             >
-              <div className="relative overflow-hidden bg-neutral-50">
+              <div className="relative overflow-hidden bg-white">
                 <div className="aspect-[4/5]">
                   <img
                     src={item.image}

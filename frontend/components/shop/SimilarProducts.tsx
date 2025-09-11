@@ -58,7 +58,7 @@ export default function SimilarProducts({ products }: SimilarProductsProps) {
           {visibleProducts.map((product) => (
             <div key={product.id} className="flex-shrink-0 w-64">
               <div className="group cursor-pointer">
-                <div className="aspect-[3/4] mb-4 overflow-hidden bg-gray-100">
+                <div className="aspect-[3/4] mb-4 overflow-hidden bg-white">
                   <img
                     src={product.images[0]}
                     alt={product.name}

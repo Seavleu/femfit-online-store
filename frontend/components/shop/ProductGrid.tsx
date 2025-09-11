@@ -84,9 +84,9 @@ export default function ProductGrid({
           </div>
 
           <div className="flex space-x-2">
-            <button className="w-6 h-6 border border-gray-300 bg-gray-100 hover:bg-gray-200 transition-colors" />
-            <button className="w-6 h-6 border border-gray-300 hover:bg-gray-100 transition-colors" />
-            <button className="w-6 h-6 border border-gray-300 hover:bg-gray-100 transition-colors" />
+            <button className="w-6 h-6 border border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors" />
+            <button className="w-6 h-6 border border-gray-300 hover:bg-gray-50 transition-colors" />
+            <button className="w-6 h-6 border border-gray-300 hover:bg-gray-50 transition-colors" />
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ function ProductGridItem({ product }: ProductGridItemProps) {
 
   return (
     <div className="group cursor-pointer">
-      <div className="relative aspect-[3/4] mb-4 overflow-hidden bg-gray-100">
+      <div className="relative aspect-[3/4] mb-4 overflow-hidden bg-white">
         <img
           src={product.image}
           alt={product.name}

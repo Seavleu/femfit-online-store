@@ -41,7 +41,7 @@ function ProductGridItem({ product }: ProductGridItemProps) {
     >
       {/* Image Container */}
       <div className={cn(
-        "relative aspect-[9/16] overflow-hidden bg-neutral-50 transition-all duration-300",
+        "relative aspect-[9/16] overflow-hidden bg-white transition-all duration-300",
         isHovered ? "border-2 border-black" : "border-2 border-transparent"
       )}>
         <img
@@ -102,7 +102,7 @@ function ProductGridItem({ product }: ProductGridItemProps) {
                   size === '38' 
                     ? "bg-white text-black border-black border-2" 
                     : ['36', '39', '40', '41'].includes(size)
-                    ? "bg-gray-100 text-gray-400 border-gray-300"
+                    ? "bg-gray-50 text-gray-400 border-gray-300"
                     : "bg-white text-black border-gray-300 hover:border-black"
                 )}
               >
@@ -262,13 +262,13 @@ export default function CategoryShowcase() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => scrollSpotlight('left')}
-                className="p-2 hover:bg-gray-100 transition-colors rounded-full"
+                className="p-2 hover:bg-gray-50 transition-colors rounded-full"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={() => scrollSpotlight('right')}
-                className="p-2 hover:bg-gray-100 transition-colors rounded-full"
+                className="p-2 hover:bg-gray-50 transition-colors rounded-full"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -286,7 +286,7 @@ export default function CategoryShowcase() {
                 href={item.href}
                 className="flex-shrink-0 w-80 group cursor-pointer"
               >
-                <div className="relative overflow-hidden bg-neutral-50">
+                <div className="relative overflow-hidden bg-white">
                   <div className="aspect-[9/16]">
                     <img
                       src={item.image}
@@ -305,20 +305,20 @@ export default function CategoryShowcase() {
       </section>
 
       {/* Most Wanted: Featured Products Section */}
-      <section className="py-2.5 bg-gray-50">
+      <section className="py-2.5 bg-white">
         <div className={`${LAYOUT_CONSTANTS.CONTAINER_MAX_WIDTH} mx-auto ${LAYOUT_CONSTANTS.CONTAINER_PADDING}`}>
                   <div className="flex items-center justify-between mb-8">
           <h2 className={`${LAYOUT_CONSTANTS.SECTION_TITLE} font-bold text-black font-futura`}>Most Wanted: Featured Products</h2>
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => scrollFeatured('left')}
-                className="p-2 hover:bg-gray-100 transition-colors rounded-full"
+                className="p-2 hover:bg-gray-50 transition-colors rounded-full"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={() => scrollFeatured('right')}
-                className="p-2 hover:bg-gray-100 transition-colors rounded-full"
+                className="p-2 hover:bg-gray-50 transition-colors rounded-full"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>

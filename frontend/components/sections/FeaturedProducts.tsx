@@ -109,9 +109,9 @@ export default function CategoryGrid() {
               }}
               className="group block w-full"
             >
-              <div className="bg-gray-50 rounded-none overflow-hidden shadow-sm transition-all duration-300 aspect-square flex flex-col">
+              <div className="bg-white rounded-none overflow-hidden shadow-sm transition-all duration-300 aspect-square flex flex-col">
                 {/* Product Image Container */}
-                <div className="flex-1 flex items-center justify-center p-6 bg-gray-100">
+                <div className="flex-1 flex items-center justify-center p-6 bg-white">
                   <img
                     src={category.image}
                     alt={category.name}
@@ -120,7 +120,7 @@ export default function CategoryGrid() {
                 </div>
                 
                 {/* Category Label */}
-                <div className="bg-gray-50 py-4 px-3 text-center">
+                <div className="bg-white py-4 px-3 text-center">
                   <h3 className="text-xs lg:text-sm font-medium text-gray-900 uppercase tracking-wide leading-tight">
                     {category.name}
                   </h3>

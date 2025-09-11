@@ -160,7 +160,7 @@ export default function StorySection() {
             <div ref={imageRef} className="lg:col-span-6 relative lg:-ml-16">
               <div className="relative">
                 {/* Main Image */}
-                <div className="aspect-[4/5] bg-gray-100 overflow-hidden relative z-10">
+                <div className="aspect-[4/5] bg-white overflow-hidden relative z-10">
                   <img
                     src="https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg"
                     alt="Luxury craftsmanship"
@@ -170,7 +170,7 @@ export default function StorySection() {
                 
                 {/* Decorative Elements */}
                 <div className="absolute -top-8 -left-8 w-24 h-24 border border-gray-300 z-0"></div>
-                <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-gray-100 z-0"></div>
+                <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-white z-0"></div>
               </div>
             </div>
           </div>

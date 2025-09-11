@@ -256,7 +256,7 @@ function ProductGridItem({ product, onAddToCart, onLike }: ProductGridItemProps)
                     size === '38' 
                       ? "border-black bg-black text-white" 
                       : ['36', '39', '40', '41'].includes(size)
-                      ? "border-gray-300 bg-gray-100 text-gray-400"
+                      ? "border-gray-300 bg-gray-50 text-gray-400"
                       : "border-gray-300 hover:border-gray-400"
                   )}
                 >

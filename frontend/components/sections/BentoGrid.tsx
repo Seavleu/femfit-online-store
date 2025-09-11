@@ -47,7 +47,7 @@ const bentoItems = [
     description: 'Comprehensive coverage for peace of mind',
     size: 'small',
     span: 'col-span-1 row-span-1',
-    color: 'bg-gray-100'
+    color: 'bg-white'
   }
 ];
 

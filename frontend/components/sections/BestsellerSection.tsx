@@ -52,7 +52,7 @@ export default function BestsellerSection({ title, products, onAddToCart }: Best
   };
 
   return (
-    <section className={`${LAYOUT_CONSTANTS.SECTION_PADDING} bg-gray-50`}>
+    <section className={`${LAYOUT_CONSTANTS.SECTION_PADDING} bg-white`}>
       <div className={`${LAYOUT_CONSTANTS.CONTAINER_MAX_WIDTH} mx-auto ${LAYOUT_CONSTANTS.CONTAINER_PADDING}`}>
         <div className="flex items-center justify-between mb-8">
           <h2 className={`${LAYOUT_CONSTANTS.SECTION_TITLE} font-bold text-black font-futura`}>{title}</h2>
@@ -60,14 +60,14 @@ export default function BestsellerSection({ title, products, onAddToCart }: Best
             <button
               onClick={scrollLeft}
               disabled={currentIndex === 0}
-              className="p-2 hover:bg-gray-100 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-gray-50 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollRight}
               disabled={currentIndex >= products.length - 4}
-              className="p-2 hover:bg-gray-100 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-gray-50 transition-colors rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
