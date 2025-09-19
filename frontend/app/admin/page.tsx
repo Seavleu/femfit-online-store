@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { 
   Package, 
   Users, 
@@ -265,20 +266,25 @@ export default function AdminDashboard() {
             <div className="space-y-6">
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
-                  />
+                <div className="flex items-center gap-4">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search products..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-black transition-colors"
+                    />
+                  </div>
+                  <Link href="/admin/products" className="text-sm text-blue-600 hover:text-blue-800 underline">
+                    View All Products
+                  </Link>
                 </div>
-                <button className="flex items-center space-x-2 bg-black text-white px-4 py-2 font-medium hover:bg-gray-900 transition-colors">
+                <Link href="/admin/products/new" className="flex items-center space-x-2 bg-black text-white px-4 py-2 font-medium hover:bg-gray-900 transition-colors">
                   <Plus className="w-4 h-4" />
                   <span>Add Product</span>
-                </button>
+                </Link>
               </div>
 
               {/* Products Grid */}
