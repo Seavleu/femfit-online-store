@@ -513,8 +513,8 @@ export default function CMSManagement() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="flex space-x-8">
+      <div className="border-b border-gray-200 overflow-x-auto">
+        <nav className="flex space-x-1 sm:space-x-8 min-w-max">
           {[
             { id: 'all', label: 'All Content', icon: FileText },
             { id: 'products', label: 'Products', icon: Tag },
@@ -525,14 +525,14 @@ export default function CMSManagement() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center space-x-2 py-4 border-b-2 font-medium transition-colors ${
+              className={`flex items-center space-x-1 sm:space-x-2 py-3 sm:py-4 px-2 sm:px-0 border-b-2 font-medium transition-colors whitespace-nowrap ${
                 activeTab === tab.id
                   ? "border-blue-500 text-blue-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
               }`}
             >
-              <tab.icon className="w-5 h-5" />
-              <span>{tab.label}</span>
+              <tab.icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <span className="text-sm sm:text-base">{tab.label}</span>
             </button>
           ))}
         </nav>

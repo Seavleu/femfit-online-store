@@ -1,12 +1,21 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function CustomCursor() {
   const cursorBigRef = useRef<HTMLDivElement>(null);
   const cursorSmallRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  // Disable custom cursor on admin pages for better performance
+  const isAdminPage = pathname?.startsWith('/admin');
 
   useEffect(() => {
+    // Don't initialize custom cursor on admin pages
+    if (isAdminPage) {
+      return;
+    }
     const cursorBig = cursorBigRef.current;
     const cursorSmall = cursorSmallRef.current;
 
@@ -82,6 +91,11 @@ export default function CustomCursor() {
       });
     };
   }, []);
+
+  // Don't render custom cursor on admin pages
+  if (isAdminPage) {
+    return null;
+  }
 
   return (
     <div className="custom-cursor">

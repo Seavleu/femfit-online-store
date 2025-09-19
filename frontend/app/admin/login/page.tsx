@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Eye, EyeOff, Lock, Mail, Shield, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
+import AdminLayout from '@/components/layouts/AdminLayout'
 
 export default function AdminLoginPage() {
   const [identifier, setIdentifier] = useState('') // Can be email or username
@@ -56,7 +57,8 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <AdminLayout>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -171,5 +173,6 @@ export default function AdminLoginPage() {
         </div>
       </div>
     </div>
+    </AdminLayout>
   )
 }

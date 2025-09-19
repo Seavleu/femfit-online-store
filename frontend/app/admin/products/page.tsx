@@ -77,12 +77,23 @@ export default function AdminProductsPage() {
             <CardTitle className="text-yellow-800">🔍 Debug Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm">
+            <div className="text-sm space-y-2">
               <p><strong>Products Count:</strong> {products.length}</p>
+              <p><strong>Product IDs:</strong> {products.map((p: any) => p.id).join(', ')}</p>
               <p><strong>First Product Structure:</strong></p>
               <pre className="bg-gray-100 p-2 rounded text-xs overflow-auto max-h-32">
                 {JSON.stringify(products[0], null, 2)}
               </pre>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-4">
+                {products.map((product: any, index: number) => (
+                  <div key={product.id} className="bg-white p-2 rounded border">
+                    <p className="font-medium text-xs">Product {index + 1}</p>
+                    <p className="text-xs"><strong>ID:</strong> {product.id}</p>
+                    <p className="text-xs"><strong>Name:</strong> {product.attributes?.name || product.name || 'N/A'}</p>
+                    <p className="text-xs"><strong>Slug:</strong> {product.attributes?.slug || product.slug || 'N/A'}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -189,15 +200,21 @@ export default function AdminProductsPage() {
 
                 <div className="flex gap-2 pt-4 border-t">
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`http://localhost:1337/admin/content-manager/collection-types/api::product-content-type.product-content-type/${product.id || product.documentId}`} target="_blank" rel="noopener noreferrer">
+                    <Link href={`/admin/products/${product.id}`}>
                       <Edit className="w-4 h-4 mr-1" />
-                      Edit in Strapi
+                      Edit
                     </Link>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/shop/${productData.slug || product.id || product.documentId}`}>
+                    <Link href={`http://localhost:1337/admin/content-manager/collection-types/api::product-content-type.product-content-type/${product.id}`} target="_blank" rel="noopener noreferrer">
+                      <Package className="w-4 h-4 mr-1" />
+                      Strapi
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`/shop/${productData.slug || product.id}`}>
                       <Eye className="w-4 h-4 mr-1" />
-                      View Product
+                      View
                     </Link>
                   </Button>
                 </div>

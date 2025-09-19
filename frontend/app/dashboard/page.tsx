@@ -13,10 +13,17 @@ import {
   Gift,
   Sparkles,
   CreditCard,
-  MapPin
+  MapPin,
+  ArrowRight,
+  Calendar,
+  Clock,
+  CheckCircle
 } from 'lucide-react';
 import Link from 'next/link';
-// Removed direct DB import; fetch from server API
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import PublicLayout from '@/components/layouts/PublicLayout';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -56,12 +63,16 @@ export default function ShopperDashboard() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+      <PublicLayout>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <Card className="p-8">
+            <CardContent className="text-center">
+              <div className="w-8 h-8 border-2 border-gray-900 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading your dashboard...</p>
+            </CardContent>
+          </Card>
         </div>
-      </div>
+      </PublicLayout>
     );
   }
 
@@ -70,175 +81,222 @@ export default function ShopperDashboard() {
   }
 
   const quickActions = [
-    { icon: ShoppingBag, label: 'Shop Now', href: '/shop', color: 'bg-blue-500' },
-    { icon: Heart, label: 'Wishlist', href: '/wishlist', color: 'bg-red-500' },
-    { icon: Package, label: 'Orders', href: '/orders', color: 'bg-green-500' },
-    { icon: User, label: 'Profile', href: '/profile', color: 'bg-purple-500' },
+    { 
+      icon: ShoppingBag, 
+      label: 'Shop Now', 
+      href: '/shop', 
+      description: 'Browse our latest collection',
+      priority: 'high'
+    },
+    { 
+      icon: Heart, 
+      label: 'Wishlist', 
+      href: '/wishlist', 
+      description: 'Your saved items',
+      priority: 'medium'
+    },
+    { 
+      icon: Package, 
+      label: 'Orders', 
+      href: '/orders', 
+      description: 'Track your orders',
+      priority: 'high'
+    },
+    { 
+      icon: User, 
+      label: 'Profile', 
+      href: '/profile', 
+      description: 'Manage your account',
+      priority: 'medium'
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="text-2xl font-bold">FEMFIT</Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/shop" className="text-gray-600 hover:text-black">Shop</Link>
-              <Link href="/orders" className="text-gray-600 hover:text-black">Orders</Link>
-              <Link href="/profile" className="text-gray-600 hover:text-black">Profile</Link>
+    <PublicLayout>
+      <div className="min-h-screen bg-white">
+        {/* Mobile-First Header */}
+        <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                  Welcome back, {user?.user_metadata?.name?.split(' ')[0] || 'User'}!
+                </h1>
+                <p className="text-sm text-gray-500 mt-1">Manage your shopping experience</p>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/shop">
+                    <ShoppingBag className="w-4 h-4 mr-1" />
+                    Shop
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </nav>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-8">
-        <div className="space-y-8">
-          {/* Welcome Header */}
-          <div className="text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Sparkles className="w-6 h-6 text-luxury-gold" />
-              <span className="text-luxury-gold font-medium">Welcome Back</span>
-              <Sparkles className="w-6 h-6 text-luxury-gold" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-playfair font-bold">
-              Hello, {user?.user_metadata?.name || user?.email || 'User'}!
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover our latest luxury collections and manage your shopping experience.
-            </p>
-          </div>
-
-          {/* Quick Actions */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {quickActions.map((action, index) => (
-              <Link
-                key={action.label}
-                href={action.href}
-                className="group p-6 bg-white rounded-2xl hover:shadow-lg transition-all duration-300 hover:scale-105"
-              >
-                <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform",
-                  action.color
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="space-y-6">
+            {/* Mobile-Optimized Quick Actions */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {quickActions.map((action, index) => (
+                <Card key={action.label} className={cn(
+                  "group hover:shadow-md transition-all duration-200 border-gray-100",
+                  action.priority === 'high' ? "ring-1 ring-gray-200" : ""
                 )}>
-                  <action.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="font-space-grotesk font-semibold text-center">{action.label}</h3>
-              </Link>
-            ))}
-          </div>
-
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-luxury-sand to-luxury-gold/20 p-6 rounded-2xl">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-luxury-gold rounded-lg">
-                  <Gift className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="font-space-grotesk font-semibold">Rewards Points</h3>
-              </div>
-              <p className="text-2xl font-bold">2,450</p>
-              <p className="text-sm text-gray-600">Available to redeem</p>
+                  <CardContent className="p-4 sm:p-6">
+                    <Link href={action.href} className="block">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 group-hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors">
+                          <action.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
+                            {action.label}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray-500 truncate">
+                            {action.description}
+                          </p>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0" />
+                      </div>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-blue-500 rounded-lg">
-                  <Package className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="font-space-grotesk font-semibold">Total Orders</h3>
-              </div>
-              <p className="text-2xl font-bold">{orders.length}</p>
-              <p className="text-sm text-gray-600">Lifetime purchases</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-green-500 rounded-lg">
-                  <Star className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="font-space-grotesk font-semibold">Member Status</h3>
-              </div>
-              <p className="text-2xl font-bold">Gold</p>
-              <p className="text-sm text-gray-600">VIP member benefits</p>
-            </div>
-          </div>
-
-          {/* Recent Orders */}
-          <div className="bg-white rounded-2xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-playfair font-bold">Recent Orders</h2>
-              <Link
-                href="/orders"
-                className="text-luxury-gold hover:text-black transition-colors font-medium"
-              >
-                View All →
-              </Link>
-            </div>
-
-            {orders.length === 0 ? (
-              <div className="text-center py-12">
-                <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 mb-4">No orders yet</p>
-                <Link
-                  href="/shop"
-                  className="inline-block bg-black text-white px-6 py-3 font-medium hover:bg-gray-900 transition-colors rounded-lg"
-                >
-                  Start Shopping
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {orders.slice(0, 3).map((order: any) => (
-                  <div key={order.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            {/* Mobile-First Stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Card className="border-gray-100">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">Order #{order.id.slice(0, 8)}</p>
-                      <p className="text-sm text-gray-600">
-                        {new Date(order.created_at).toLocaleDateString()}
-                      </p>
+                      <p className="text-sm font-medium text-gray-500">Rewards Points</p>
+                      <p className="text-2xl font-bold text-gray-900">2,450</p>
                     </div>
-                    <div className="text-right">
-                      <p className="font-bold">${order.total.toFixed(2)}</p>
-                      <span className={cn(
-                        "px-2 py-1 text-xs font-medium rounded-full",
-                        order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                        order.status === 'shipped' ? 'bg-blue-100 text-blue-800' :
-                        order.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                      )}>
-                        {order.status}
-                      </span>
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Gift className="w-5 h-5 text-gray-600" />
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
+                </CardContent>
+              </Card>
 
-          {/* Special Offers */}
-          <div className="bg-gradient-to-r from-luxury-charcoal to-black text-white p-8 rounded-2xl">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center space-x-2 mb-2">
-                  <TrendingUp className="w-5 h-5 text-luxury-gold" />
-                </div>
-                <h3 className="text-2xl font-playfair font-bold mb-2">
-                  Get 20% Off Your Next Purchase
-                </h3>
-                <p className="text-gray-300 mb-4">
-                  Use code <span className="font-mono bg-luxury-gold text-black px-2 py-1 rounded">SHOPPER20</span> at checkout
-                </p>
-              </div>
-              <Link
-                href="/shop"
-                className="bg-luxury-gold text-black px-6 py-3 font-medium hover:bg-white transition-colors rounded-lg"
-              >
-                Shop Now
-              </Link>
+              <Card className="border-gray-100">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Total Orders</p>
+                      <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
+                    </div>
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Package className="w-5 h-5 text-gray-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-gray-100">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Member Status</p>
+                      <p className="text-2xl font-bold text-gray-900">Gold</p>
+                    </div>
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Star className="w-5 h-5 text-gray-600" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+
+            {/* Mobile-Optimized Recent Orders */}
+            <Card className="border-gray-100">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg sm:text-xl font-bold text-gray-900">Recent Orders</CardTitle>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href="/orders" className="text-gray-600 hover:text-gray-900">
+                      View All
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {orders.length === 0 ? (
+                  <div className="text-center py-8 sm:py-12">
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Package className="w-8 h-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders yet</h3>
+                    <p className="text-gray-500 mb-6 max-w-sm mx-auto">Start shopping to see your orders here</p>
+                    <Button asChild className="w-full sm:w-auto">
+                      <Link href="/shop">
+                        <ShoppingBag className="w-4 h-4 mr-2" />
+                        Start Shopping
+                      </Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {orders.slice(0, 3).map((order: any) => (
+                      <div key={order.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div className="flex items-center space-x-3 flex-1 min-w-0">
+                          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Package className="w-5 h-5 text-gray-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-gray-900 truncate">Order #{order.id.slice(0, 8)}</p>
+                            <div className="flex items-center space-x-2 text-sm text-gray-500">
+                              <Calendar className="w-4 h-4 flex-shrink-0" />
+                              <span className="truncate">{new Date(order.created_at).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0 ml-3">
+                          <p className="font-bold text-gray-900">${order.total.toFixed(2)}</p>
+                          <Badge variant="outline" className="text-xs">
+                            {order.status === 'delivered' && <CheckCircle className="w-3 h-3 mr-1" />}
+                            {order.status === 'shipped' && <Clock className="w-3 h-3 mr-1" />}
+                            {order.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Mobile-Optimized Special Offer */}
+            <Card className="bg-gray-900 text-white border-0">
+              <CardContent className="p-6 sm:p-8">
+                <div className="text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start space-x-2 mb-3">
+                    <TrendingUp className="w-5 h-5 text-gray-300" />
+                    <span className="text-gray-300 font-medium text-sm">Special Offer</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3">
+                    Get 20% Off Your Next Purchase
+                  </h3>
+                  <p className="text-gray-300 mb-6 text-sm sm:text-base">
+                    Use code <span className="font-mono bg-white text-gray-900 px-2 py-1 rounded text-sm">SHOPPER20</span> at checkout
+                  </p>
+                  <Button asChild className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100">
+                    <Link href="/shop">
+                      <ShoppingBag className="w-4 h-4 mr-2" />
+                      Shop Now
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
-    </div>
+    </PublicLayout>
   );
 }

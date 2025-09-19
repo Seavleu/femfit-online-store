@@ -51,3 +51,15 @@
 		cursor: auto;
 	}
 }
+
+/* Ensure normal cursor on admin pages for better performance */
+[data-pathname^="/admin"] body,
+body[data-admin="true"] {
+	cursor: auto !important;
+}
+
+/* Hide custom cursor on admin pages */
+[data-pathname^="/admin"] .custom-cursor,
+body[data-admin="true"] .custom-cursor {
+	display: none !important;
+}
