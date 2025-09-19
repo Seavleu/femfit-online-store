@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_content_types",
+  "info": {
+    "singularName": "product-content-type",
+    "pluralName": "product-content-types",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "compareAtPrice": {
+      "type": "decimal"
+    },
+    "sku": {
+      "type": "string",
+      "unique": true
+    },
+    "barcode": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "productStatus": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ]
+    },
+    "variants": {
+      "type": "component",
+      "component": "product-variant.product-variant",
+      "repeatable": true
+    },
+    "inventory": {
+      "type": "component",
+      "component": "inventory-settings.inventory-settings",
+      "repeatable": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "seo-settings.seo-settings",
+      "repeatable": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category-content-type.category-content-type",
+      "inversedBy": "products"
+    }
+  }
+}

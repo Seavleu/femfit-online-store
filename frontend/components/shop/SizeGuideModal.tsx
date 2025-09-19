@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import gsap from 'gsap';
 
 interface SizeGuideModalProps {
   onClose: () => void;
@@ -22,19 +21,6 @@ export default function SizeGuideModal({ onClose }: SizeGuideModalProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Animate modal in
-    if (modalRef.current && contentRef.current) {
-      gsap.fromTo(modalRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: 'power2.out' }
-      );
-      
-      gsap.fromTo(contentRef.current,
-        { scale: 0.9, y: 50, opacity: 0 },
-        { scale: 1, y: 0, opacity: 1, duration: 0.4, delay: 0.1, ease: 'back.out(1.7)' }
-      );
-    }
-
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
     
@@ -44,34 +30,18 @@ export default function SizeGuideModal({ onClose }: SizeGuideModalProps) {
   }, []);
 
   const handleClose = () => {
-    if (modalRef.current && contentRef.current) {
-      gsap.to(contentRef.current, {
-        scale: 0.9,
-        y: 50,
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power2.in'
-      });
-      
-      gsap.to(modalRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        delay: 0.1,
-        ease: 'power2.in',
-        onComplete: onClose
-      });
-    }
+    onClose();
   };
 
   return (
     <div
       ref={modalRef}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
       onClick={handleClose}
     >
       <div
         ref={contentRef}
-        className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+        className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">

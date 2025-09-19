@@ -1,13 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// GSAP removed - using CSS animations instead
 import Link from 'next/link';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// GSAP removed - using CSS animations instead
 
 const categories = [
   {
@@ -86,31 +83,9 @@ export default function CategoryGrid() {
     cardsRef.current.forEach((card, index) => {
       if (!card) return;
 
-      // Staggered fade-in animation
-      gsap.fromTo(card,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          delay: index * 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      // Simple hover effect for border only
-      card.addEventListener('mouseenter', () => {
-        // Border animation is handled by CSS classes, no additional GSAP needed
-      });
-
-      card.addEventListener('mouseleave', () => {
-        // Border animation is handled by CSS classes, no additional GSAP needed
-      });
+      // Add CSS animation classes
+      card.classList.add('animate-fade-in');
+      card.style.animationDelay = `${index * 0.1}s`;
     });
   }, []);
 

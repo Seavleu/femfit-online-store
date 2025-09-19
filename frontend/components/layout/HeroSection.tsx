@@ -2,14 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { animation, slideUp } from '@/motion';
-import TextMask from '@/animation/TextMask';
-import LinkHover from '@/animation/LinkHover';
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
-import Button from '@/components/Button';
-import ApplyStyleButton from '@/components/ApplyStyleButton';
+import { LinkHover } from '@/animation';
+import { ImagePlaceholder } from '@/components/ui';
+import { Button } from '@/components/ui';
 
 interface HeroSectionProps {
   isScrolled: boolean;
@@ -93,120 +89,57 @@ export default function HeroSection({ isScrolled }: HeroSectionProps) {
 
   const currentHero = heroImages[currentImage];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-        ease: [0.76, 0, 0.24, 1] as const,
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.76, 0, 0.24, 1] as const
-      }
-    }
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.76, 0, 0.24, 1] as const
-      }
-    }
-  };
-
   return (
-    <motion.div 
-      className="relative"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="relative animate-fade-in">
       {/* Main Hero Section */}
       <div className="relative h-[80vh] overflow-hidden">
         {/* Full Background Image */}
-        <motion.div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat animate-scale-in"
           style={{
             backgroundImage: 'url(https://www.charleskeith.com/on/demandware.static/-/Library-Sites-CharlesKeith/default/dw21fa4cb5/images/homepage/2025/charles-keith-home-s-week-36-kr-600x1000-mobile.jpg)'
           }}
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
         >
           {/* Overlay for better text readability */}
-          <motion.div 
-            className="absolute inset-0 bg-black/30" 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
+          <div className="absolute inset-0 bg-black/30 animate-fade-in-delayed" />
           
           {/* Content positioned over the image */}
-          <motion.div 
-            className="absolute bottom-20 left-12 text-white z-10"
-            variants={itemVariants}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentImage}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-              >
-                <TextMask>
-                  {[currentHero.leftTitle]}
-                </TextMask>
-              </motion.div>
-            </AnimatePresence>
+          <div className="absolute bottom-20 left-12 text-white z-10 animate-slide-up">
+            <div className="animate-fade-in-slide">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                {currentHero.leftTitle}
+              </h1>
+            </div>
             
-            <motion.div variants={buttonVariants}>
-              <ApplyStyleButton
-                href={currentHero.leftButtonHref}
-                title={currentHero.leftButton}
-              />
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            <div className="animate-scale-in-delayed">
+              <Button
+                asChild
+                className="bg-white text-black hover:bg-gray-100 px-8 py-3 text-lg font-semibold"
+              >
+                <Link href={currentHero.leftButtonHref}>
+                  {currentHero.leftButton}
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
 
         {/* Hero Navigation Dots */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10 animate-fade-in-delayed">
           {heroImages.map((_, index) => (
-            <motion.button
+            <button
               key={index}
               onClick={() => setCurrentImage(index)}
               className={cn(
-                "w-3 h-3 rounded-full transition-all duration-300",
+                "w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95",
                 index === currentImage 
                   ? "bg-white scale-125" 
                   : "bg-white/50 hover:bg-white/75"
               )}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
             />
           ))}
-        </motion.div>
+        </div>
       </div>  
-    </motion.div>
+    </div>
   );
 }

@@ -1,0 +1,65 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroTitle": {
+      "type": "string",
+      "required": true
+    },
+    "heroSubtitle": {
+      "type": "string"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "heroButtonText": {
+      "type": "string"
+    },
+    "heroButtonLink": {
+      "type": "string"
+    },
+    "aboutTitle": {
+      "type": "string"
+    },
+    "aboutContent": {
+      "type": "blocks"
+    },
+    "aboutImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "seo-settings.seo-settings",
+      "repeatable": true
+    },
+    "featuredProducts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-content-type.product-content-type"
+    }
+  }
+}

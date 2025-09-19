@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import gsap from 'gsap';
 
 export default function PromotionalPopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,49 +19,12 @@ export default function PromotionalPopup() {
     }
   }, []);
 
-  // Animate popup entrance
-  useEffect(() => {
-    if (isVisible) {
-      const popupElement = document.querySelector('.promo-popup');
-      if (popupElement) {
-        gsap.fromTo(popupElement,
-          { 
-            scale: 0.8, 
-            opacity: 0,
-            y: 20
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'back.out(1.7)'
-          }
-        );
-      }
-    }
-  }, [isVisible]);
+  // CSS-based animations instead of GSAP
 
   const handleClose = () => {
     setIsClosing(true);
-    
-    const popupElement = document.querySelector('.promo-popup');
-    if (popupElement) {
-      gsap.to(popupElement, {
-        scale: 0.8,
-        opacity: 0,
-        y: 20,
-        duration: 0.3,
-        ease: 'power2.in',
-        onComplete: () => {
-          setIsVisible(false);
-          localStorage.setItem('promoPopupSeen', 'true');
-        }
-      });
-    } else {
-      setIsVisible(false);
-      localStorage.setItem('promoPopupSeen', 'true');
-    }
+    setIsVisible(false);
+    localStorage.setItem('promoPopupSeen', 'true');
   };
 
   if (!isVisible) return null;
@@ -72,7 +34,7 @@ export default function PromotionalPopup() {
       {/* Backdrop */}
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
         {/* Popup */}
-        <div className="promo-popup bg-white rounded-2xl shadow-2xl max-w-md w-full relative overflow-hidden">
+        <div className="promo-popup bg-white rounded-2xl shadow-2xl max-w-md w-full relative overflow-hidden animate-scale-in">
           {/* Close button */}
           <button
             onClick={handleClose}

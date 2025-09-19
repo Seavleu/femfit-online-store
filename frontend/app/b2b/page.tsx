@@ -14,7 +14,6 @@ import {
   ArrowRight,
   Zap
 } from 'lucide-react';
-import gsap from 'gsap';
 import PrivateLayout from '@/components/layouts/PrivateLayout';
 import { cn } from '@/lib/utils';
 

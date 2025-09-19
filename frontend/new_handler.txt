@@ -1,7 +1,0 @@
-const handleContainerLeave = () => {
-    // Set a delay before hiding sub-items when leaving the entire container
-    const timeout = setTimeout(() => {
-      setHoveredItem(null);
-    }, 200); // 200ms delay
-    setHoverTimeout(timeout);
-  };

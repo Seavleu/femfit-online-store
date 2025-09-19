@@ -1,0 +1,53 @@
+/* Custom Cursor Styles */
+.custom-cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	pointer-events: none;
+}
+
+.custom-cursor__ball {
+	position: fixed;
+	top: 0;
+	left: 0;
+	mix-blend-mode: difference;
+	z-index: 99999;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.5s ease;
+}
+
+.custom-cursor__ball--big {
+	content: "";
+	width: 35px;
+	height: 35px;
+	background: #0b0b0c36;
+	border-radius: 50%;
+}
+
+.custom-cursor__ball--small {
+	content: "";
+	width: 6px;
+	height: 6px;
+	background: #edede7;
+	border-radius: 50%;
+}
+
+/* Show cursor on desktop only */
+@media (hover: hover) and (pointer: fine) {
+	body {
+		cursor: none;
+	}
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+	.custom-cursor {
+		display: none;
+	}
+	
+	body {
+		cursor: auto;
+	}
+}

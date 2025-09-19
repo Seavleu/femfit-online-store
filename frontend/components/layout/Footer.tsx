@@ -1,7 +1,7 @@
 'use client';
 import React, { FormEvent, useRef, useState } from 'react';
 import Link from 'next/link';
-import LinkHover from '@/animation/LinkHover';
+import { LinkHover } from '@/animation';
 
 const Footer = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -87,7 +87,7 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className='bg-white py-2.5'>
+      <div className='bg-white py-2.5 animate-fade-in'>
         <div className='sm:container px-4 mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-5 gap-8'>
             {/* NEED HELP? */}
@@ -202,20 +202,18 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
 
-
-
-      {/* Copyright Section */}
-      <div className='bg-black h-5 flex items-center'>
-        <div className='sm:container px-4 mx-auto w-full'>
-          <div className='flex md:flex-row flex-col-reverse gap-3 justify-between items-center'>
-            <span className='font-medium text-xs text-white'>
-              &copy; 2025 FEMFIT. All Rights Reserved.
-            </span>
-            <a href='#' className='font-semibold text-xs text-white'>
-              Privacy Policy
-            </a>
+        {/* Copyright Section */}
+        <div className='bg-black h-5 flex items-center'>
+          <div className='sm:container px-4 mx-auto w-full'>
+            <div className='flex md:flex-row flex-col-reverse gap-3 justify-between items-center'>
+              <span className='font-medium text-xs text-white'>
+                &copy; 2025 FEMFIT. All Rights Reserved.
+              </span>
+              <a href='#' className='font-semibold text-xs text-white'>
+                Privacy Policy
+              </a>
+            </div>
           </div>
         </div>
       </div>

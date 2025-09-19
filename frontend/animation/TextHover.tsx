@@ -1,4 +1,7 @@
-import { TtextHoverProps } from "@/types";
+interface TtextHoverProps {
+  titile1: string;
+  titile2: string;
+}
 
 export default function TextHover({ titile1, titile2 }: TtextHoverProps) {
 	return (

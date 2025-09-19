@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+// GSAP removed - using CSS animations instead
 
 export default function BrandLogos() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,35 +43,14 @@ export default function BrandLogos() {
   useEffect(() => {
     if (!logosRef.current) return;
 
-    // Animate logos entrance
-    gsap.fromTo(logosRef.current.children,
-      { 
-        y: 30, 
-        opacity: 0,
-        scale: 0.9
-      },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.3
-      }
-    );
-
-    // Continuous scroll animation
-    const scrollAnimation = gsap.to(logosRef.current, {
-      x: -logosRef.current.scrollWidth / 2,
-      duration: 20,
-      ease: 'none',
-      repeat: -1
+    // Add CSS animation classes
+    logosRef.current.classList.add('animate-scroll');
+    
+    // Add fade-in animation to children
+    Array.from(logosRef.current.children).forEach((child, index) => {
+      child.classList.add('animate-fade-in');
+      (child as HTMLElement).style.animationDelay = `${0.3 + index * 0.1}s`;
     });
-
-    return () => {
-      scrollAnimation.kill();
-    };
   }, []);
 
   return (

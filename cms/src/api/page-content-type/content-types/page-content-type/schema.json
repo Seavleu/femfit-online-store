@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_content_types",
+  "info": {
+    "singularName": "page-content-type",
+    "pluralName": "page-content-types",
+    "displayName": "Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "pageStatus": {
+      "type": "enumeration",
+      "enum": [
+        "draft",
+        "published"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "seo-settings.seo-settings",
+      "repeatable": true
+    }
+  }
+}

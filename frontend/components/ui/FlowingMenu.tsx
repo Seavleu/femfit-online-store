@@ -1,5 +1,4 @@
 import React from 'react';
-import { gsap } from 'gsap';
 import { useRouter } from 'next/navigation';
 import './FlowingMenu.css';
 
@@ -39,7 +38,7 @@ const MenuItem: React.FC<MenuItemProps & { onClose?: () => void; onItemHover?: (
   const marqueeRef = React.useRef<HTMLDivElement>(null);
   const marqueeInnerRef = React.useRef<HTMLDivElement>(null);
 
-  const animationDefaults: gsap.TweenVars = { duration: 0.6, ease: 'expo' };
+  // CSS-based animations instead of GSAP
 
   const distMetric = (x: number, y: number, x2: number, y2: number): number => {
     const xDiff = x - x2;
@@ -60,11 +59,19 @@ const MenuItem: React.FC<MenuItemProps & { onClose?: () => void; onItemHover?: (
     const y = ev.clientY - rect.top;
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
-    const tl = gsap.timeline({ defaults: animationDefaults });
-
-    tl.set(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
-      .set(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0)
-      .to([marqueeRef.current, marqueeInnerRef.current], { y: '0%' }, 0);
+    // CSS-based animations instead of GSAP
+    if (marqueeRef.current && marqueeInnerRef.current) {
+      marqueeRef.current.style.transform = `translateY(${edge === 'top' ? '-101%' : '101%'})`;
+      marqueeInnerRef.current.style.transform = `translateY(${edge === 'top' ? '101%' : '-101%'})`;
+      
+      // Trigger animation
+      setTimeout(() => {
+        if (marqueeRef.current && marqueeInnerRef.current) {
+          marqueeRef.current.style.transform = 'translateY(0%)';
+          marqueeInnerRef.current.style.transform = 'translateY(0%)';
+        }
+      }, 10);
+    }
 
     // Show sub-items in right column
     onItemHover?.({ link, text, image, subItems });
@@ -77,13 +84,11 @@ const MenuItem: React.FC<MenuItemProps & { onClose?: () => void; onItemHover?: (
     const y = ev.clientY - rect.top;
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
-    const tl = gsap.timeline({ defaults: animationDefaults });
-
-    tl.to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0).to(
-      marqueeInnerRef.current,
-      { y: edge === 'top' ? '101%' : '-101%' },
-      0
-    );
+    // CSS-based animations instead of GSAP
+    if (marqueeRef.current && marqueeInnerRef.current) {
+      marqueeRef.current.style.transform = `translateY(${edge === 'top' ? '-101%' : '101%'})`;
+      marqueeInnerRef.current.style.transform = `translateY(${edge === 'top' ? '101%' : '-101%'})`;
+    }
 
     // Let the parent handle the sub-items visibility with proper timing
     // The parent will use onMouseLeave on the container to manage this

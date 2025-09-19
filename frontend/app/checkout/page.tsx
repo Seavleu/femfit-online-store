@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import CheckoutFlow from '@/components/checkout/CheckoutFlow';
 import { toast } from 'sonner';
+import { LoadingState, EmptyState } from '@/components/design-system';
+import { ShoppingCart } from 'lucide-react';
 
 export default function CheckoutPage() {
   const { user, session, loading } = useSupabaseAuth();
@@ -26,15 +28,21 @@ export default function CheckoutPage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingState text="Loading checkout..." fullScreen />;
   }
 
   if (!user) {
-    return null;
+    return (
+      <EmptyState
+        icon={<ShoppingCart className="w-16 h-16 text-gray-400" />}
+        title="Please Sign In"
+        description="You need to sign in to proceed with checkout"
+        action={{
+          label: 'Sign In',
+          onClick: () => router.push('/auth/signin')
+        }}
+      />
+    );
   }
 
   return (

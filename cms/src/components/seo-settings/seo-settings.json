@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_seo_settings_seo_settings",
+  "info": {
+    "displayName": "SEO Settings"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "noIndex": {
+      "type": "boolean",
+      "default": false
+    },
+    "keywords": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

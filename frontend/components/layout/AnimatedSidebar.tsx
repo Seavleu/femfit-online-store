@@ -137,10 +137,11 @@ export default function AnimatedSidebar({ isOpen, onClose }: AnimatedSidebarProp
       )}
 
       {/* Sidebar */}
-      <div className={cn(
-        "fixed left-0 top-0 h-full w-80 bg-white z-50 sidebar-container transform transition-transform duration-300 ease-in-out",
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
+      <div 
+        className={`fixed left-0 top-0 h-full w-80 bg-white z-50 sidebar-container transition-transform duration-300 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-lg font-bold">New Products</h2>
@@ -156,8 +157,12 @@ export default function AnimatedSidebar({ isOpen, onClose }: AnimatedSidebarProp
         <div className="flex-1 overflow-y-auto">
           <nav className="p-6">
             <ul className="space-y-1">
-              {categories.map((category) => (
-                <li key={category.id}>
+              {categories.map((category, index) => (
+                <li 
+                  key={category.id}
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                   {category.subCategories ? (
                     <div>
                       <button

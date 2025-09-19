@@ -16,7 +16,6 @@ import {
   Search,
   Filter
 } from 'lucide-react';
-import gsap from 'gsap';
 import Navigation from '@/components/layout/Navigation';
 import { products } from '@/data/products';
 import { cn } from '@/lib/utils';
@@ -77,11 +76,9 @@ export default function AdminDashboard() {
   }, [loading, user, router]);
 
   useEffect(() => {
+    // Animation handled by CSS classes
     if (dashboardRef.current) {
-      gsap.fromTo(dashboardRef.current.children,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
-      );
+      dashboardRef.current.classList.add('animate-fade-in');
     }
   }, []);
 

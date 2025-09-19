@@ -8,6 +8,12 @@ import Footer from '@/components/layout/Footer';
 import { useCart } from '@/contexts/CartContext';
 import { cn } from '@/lib/utils';
 import { formatPrice } from '@/lib/currency';
+import { 
+  PageHeader, 
+  ContentCard, 
+  EmptyState, 
+  LoadingState 
+} from '@/components/design-system';
 
 export default function CartPage() {
   const { state, updateQuantity, removeFromCart } = useCart();
@@ -26,16 +32,23 @@ export default function CartPage() {
     return (
       <main className="bg-white text-black min-h-screen">
         <Navigation />
-        <div className="max-w-2xl mx-auto px-6 sm:px-8 pt-24 pb-16 text-center">
-          <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-6" />
-          <h1 className="text-3xl font-playfair font-bold mb-4">Your cart is empty</h1>
-          <p className="text-gray-600 mb-8">Looks like you haven't added anything to your cart yet.</p>
-          <Link
-            href="/shop"
-            className="inline-block bg-black text-white px-8 py-4 font-medium hover:bg-gray-900 transition-colors rounded-lg"
-          >
-            Continue Shopping
-          </Link>
+        <PageHeader
+          title="Shopping Cart"
+          description="Your cart is empty"
+          showBackButton
+          backHref="/shop"
+          className="bg-white"
+        />
+        <div className="max-w-2xl mx-auto px-6 sm:px-8 py-12">
+          <EmptyState
+            icon={<ShoppingBag className="w-16 h-16 text-gray-400" />}
+            title="Your cart is empty"
+            description="Looks like you haven't added anything to your cart yet."
+            action={{
+              label: 'Continue Shopping',
+              onClick: () => window.location.href = '/shop'
+            }}
+          />
         </div>
         <Footer />
       </main>
@@ -45,33 +58,34 @@ export default function CartPage() {
   return (
     <main className="bg-white text-black min-h-screen">
       <Navigation />
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 pt-24 pb-16">
-        {/* Header */}
-        <div className="flex items-center space-x-4 mb-8">
-          <Link
-            href="/shop"
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <h1 className="text-3xl font-playfair font-bold">Shopping Cart</h1>
-          <span className="text-gray-500">({state.itemCount} items)</span>
-        </div>
+      
+      {/* Page Header */}
+      <PageHeader
+        title="Shopping Cart"
+        description={`${state.itemCount} items in your cart`}
+        showBackButton
+        backHref="/shop"
+        className="bg-white"
+      />
+      
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 py-8">
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-space-grotesk font-semibold">Items in your cart</h2>
-              <button
-                onClick={clearCart}
-                className="text-sm text-gray-500 hover:text-red-500 transition-colors"
-              >
-                Clear all
-              </button>
-            </div>
-
-            <div className="space-y-6">
+            <ContentCard
+              title="Items in your cart"
+              actions={
+                <button
+                  onClick={clearCart}
+                  className="text-sm text-gray-500 hover:text-red-500 transition-colors"
+                >
+                  Clear all
+                </button>
+              }
+              padding="lg"
+            >
+              <div className="space-y-6">
               {state.items.map((item) => (
                 <div key={item.id} className="flex space-x-4 p-6 border border-gray-200 rounded-lg">
                   <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
@@ -129,13 +143,17 @@ export default function CartPage() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            </ContentCard>
           </div>
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 p-6 rounded-lg sticky top-24">
-              <h3 className="text-lg font-space-grotesk font-semibold mb-6">Order Summary</h3>
+            <ContentCard
+              title="Order Summary"
+              padding="lg"
+              className="sticky top-24"
+            >
               
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
@@ -179,7 +197,7 @@ export default function CartPage() {
                   Free shipping on orders over $100
                 </p>
               </div>
-            </div>
+            </ContentCard>
           </div>
         </div>
       </div>

@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { 
+  PageHeader, 
+  ContentCard, 
+  DataTable, 
+  StatusBadge, 
+  EmptyState,
+  LoadingState 
+} from '@/components/design-system';
+import { 
   Package, 
   ShoppingCart, 
   Users, 
@@ -16,7 +24,10 @@ import {
   Plus,
   Edit,
   Trash2,
-  Eye
+  Eye,
+  Search,
+  Filter,
+  Download
 } from 'lucide-react';
 
 interface Product {
@@ -46,6 +57,10 @@ export default function AdminDashboard() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     loadData();
@@ -118,38 +133,132 @@ export default function AdminDashboard() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+  // Filter and sort products
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const aValue = a[sortBy as keyof Product];
+    const bValue = b[sortBy as keyof Product];
+    
+    if (sortOrder === 'asc') {
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    } else {
+      return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+    }
+  });
 
   const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
   const totalOrders = orders.length;
   const totalProducts = products.length;
   const activeProducts = products.filter(p => p.isActive).length;
 
+  // Table columns configuration
+  const columns = [
+    {
+      key: 'name',
+      label: 'Product',
+      sortable: true,
+      render: (value: string, product: Product) => (
+        <div className="flex items-center">
+          <div className="text-sm font-medium text-gray-900">{value}</div>
+        </div>
+      )
+    },
+    {
+      key: 'category',
+      label: 'Category',
+      sortable: true,
+      render: (value: string) => (
+        <div className="text-sm text-gray-900">{value}</div>
+      )
+    },
+    {
+      key: 'price',
+      label: 'Price',
+      sortable: true,
+      render: (value: number) => (
+        <div className="text-sm text-gray-900">${value.toFixed(2)}</div>
+      )
+    },
+    {
+      key: 'totalStock',
+      label: 'Stock',
+      sortable: true,
+      render: (value: number) => (
+        <div className="text-sm text-gray-900">{value}</div>
+      )
+    },
+    {
+      key: 'sales',
+      label: 'Sales',
+      sortable: true,
+      render: (value: number) => (
+        <div className="text-sm text-gray-900">{value}</div>
+      )
+    },
+    {
+      key: 'isActive',
+      label: 'Status',
+      render: (value: boolean) => (
+        <StatusBadge status={value ? 'active' : 'inactive'} />
+      )
+    },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (value: any, product: Product) => (
+        <div className="flex space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setSelectedProduct(product);
+              setIsEditModalOpen(true);
+            }}
+          >
+            <Edit className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleDeleteProduct(product._id)}
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      )
+    }
+  ];
+
+  if (loading) {
+    return <LoadingState text="Loading dashboard..." fullScreen />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="flex items-center justify-between h-16">
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-            <Button onClick={() => setIsCreateModalOpen(true)}>
-              <Plus className="w-4 h-4 mr-2" />
-              Add Product
-            </Button>
-          </div>
-        </div>
-      </div>
+      {/* Page Header */}
+      <PageHeader
+        title="Admin Dashboard"
+        description="Manage your products, orders, and business analytics"
+        breadcrumbs={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Dashboard' }
+        ]}
+        actions={
+          <Button onClick={() => setIsCreateModalOpen(true)}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Product
+          </Button>
+        }
+      />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+          <ContentCard padding="md">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <DollarSign className="w-6 h-6 text-blue-600" />
@@ -159,9 +268,9 @@ export default function AdminDashboard() {
                 <p className="text-2xl font-bold text-gray-900">${totalRevenue.toFixed(2)}</p>
               </div>
             </div>
-          </div>
+          </ContentCard>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <ContentCard padding="md">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
                 <ShoppingCart className="w-6 h-6 text-green-600" />
@@ -171,9 +280,9 @@ export default function AdminDashboard() {
                 <p className="text-2xl font-bold text-gray-900">{totalOrders}</p>
               </div>
             </div>
-          </div>
+          </ContentCard>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <ContentCard padding="md">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Package className="w-6 h-6 text-purple-600" />
@@ -183,9 +292,9 @@ export default function AdminDashboard() {
                 <p className="text-2xl font-bold text-gray-900">{totalProducts}</p>
               </div>
             </div>
-          </div>
+          </ContentCard>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <ContentCard padding="md">
             <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
                 <TrendingUp className="w-6 h-6 text-yellow-600" />
@@ -195,95 +304,36 @@ export default function AdminDashboard() {
                 <p className="text-2xl font-bold text-gray-900">{activeProducts}</p>
               </div>
             </div>
-          </div>
+          </ContentCard>
         </div>
 
         {/* Products Table */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900">Products</h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Product
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Category
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Price
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Stock
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Sales
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {products.map((product) => (
-                  <tr key={product._id}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{product.category}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">${product.price}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{product.totalStock}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{product.sales}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Badge className={cn(
-                        product.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                      )}>
-                        {product.isActive ? 'Active' : 'Inactive'}
-                      </Badge>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedProduct(product);
-                            setIsEditModalOpen(true);
-                          }}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDeleteProduct(product._id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <DataTable
+          columns={columns}
+          data={sortedProducts}
+          title="Products"
+          description="Manage your product inventory and details"
+          searchable
+          searchPlaceholder="Search products..."
+          onSearch={setSearchQuery}
+          onSort={(column, direction) => {
+            setSortBy(column);
+            setSortOrder(direction);
+          }}
+          actions={
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm">
+                <Filter className="w-4 h-4 mr-2" />
+                Filters
+              </Button>
+              <Button variant="outline" size="sm">
+                <Download className="w-4 h-4 mr-2" />
+                Export
+              </Button>
+            </div>
+          }
+          emptyMessage="No products found. Add your first product to get started."
+        />
       </div>
     </div>
   );

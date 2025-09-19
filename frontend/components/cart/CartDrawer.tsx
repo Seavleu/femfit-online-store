@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { X, Plus, Minus, ShoppingBag, Truck } from 'lucide-react';
-import gsap from 'gsap';
+// GSAP removed - using CSS animations instead
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { cn } from '@/lib/utils';
@@ -16,22 +16,16 @@ export default function CartDrawer() {
 
   useEffect(() => {
     if (state.isOpen) {
-      // Animate drawer in
+      // Add CSS animation classes
       if (overlayRef.current && drawerRef.current && contentRef.current) {
-        gsap.fromTo(overlayRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.3, ease: 'power2.out' }
-        );
+        overlayRef.current.classList.add('animate-fade-in');
+        drawerRef.current.classList.add('animate-slide-in-right');
         
-        gsap.fromTo(drawerRef.current,
-          { x: '100%' },
-          { x: '0%', duration: 0.4, ease: 'power3.out' }
-        );
-
-        gsap.fromTo(contentRef.current.children,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, delay: 0.2, ease: 'power3.out' }
-        );
+        // Add staggered animation to children
+        Array.from(contentRef.current.children).forEach((child, index) => {
+          child.classList.add('animate-fade-in');
+          (child as HTMLElement).style.animationDelay = `${0.2 + index * 0.05}s`;
+        });
       }
       
       // Prevent body scroll
@@ -47,19 +41,14 @@ export default function CartDrawer() {
 
   const handleClose = () => {
     if (overlayRef.current && drawerRef.current) {
-      gsap.to(drawerRef.current, {
-        x: '100%',
-        duration: 0.3,
-        ease: 'power3.in'
-      });
+      // Add CSS animation classes for closing
+      drawerRef.current.classList.add('animate-slide-out-right');
+      overlayRef.current.classList.add('animate-fade-out');
       
-      gsap.to(overlayRef.current, {
-        opacity: 0,
-        duration: 0.3,
-        delay: 0.1,
-        ease: 'power2.in',
-        onComplete: () => closeCart()
-      });
+      // Close after animation
+      setTimeout(() => {
+        closeCart();
+      }, 300);
     }
   };
 

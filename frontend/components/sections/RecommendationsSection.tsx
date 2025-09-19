@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { ArrowRight, Heart, ShoppingCart, Plus, Eye } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// GSAP removed - using CSS animations instead
 import Link from 'next/link';
 import { products, Product } from '@/data/products';
 import { useCart } from '@/contexts/CartContext';
@@ -14,9 +13,7 @@ import { ErrorHandler } from '@/lib/errorHandling';
 import { formatPrice } from '@/lib/currency';
 import { LAYOUT_CONSTANTS, RESPONSIVE } from '@/lib/layout';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// GSAP removed - using CSS animations instead
 
 const newSeasonProducts = {
   hero: {
@@ -60,21 +57,11 @@ export default function RecommendationsSection() {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    gsap.fromTo(sectionRef.current.children,
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
+    // Add CSS animation classes
+    Array.from(sectionRef.current.children).forEach((child, index) => {
+      child.classList.add('animate-fade-in');
+      (child as HTMLElement).style.animationDelay = `${index * 0.1}s`;
+    });
   }, []);
 
   const handleAddToCart = async (e: React.MouseEvent, product: Product) => {

@@ -23,7 +23,6 @@ import {
   Upload,
   Save
 } from 'lucide-react';
-import gsap from 'gsap';
 import { products } from '@/data/products';
 // TODO: replace with server APIs; avoid importing DB in client
 import { getProducts, getOrders, createProduct, updateProduct, deleteProduct } from '@/lib/database';

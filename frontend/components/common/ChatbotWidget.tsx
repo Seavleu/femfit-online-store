@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
-import gsap from 'gsap';
 import { useTranslation } from '@/lib/i18n';
 import { PerformanceMonitor } from '@/lib/performance';
 

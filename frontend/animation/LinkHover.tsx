@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { TLinkHoverProps } from "@/types";
+
+interface TLinkHoverProps {
+  href: string;
+  title: string;
+  className?: string;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}
 
 export default function LinkHover({ href, title, className, children, style, onClick }: TLinkHoverProps) {
 	return (

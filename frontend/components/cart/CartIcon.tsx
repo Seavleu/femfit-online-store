@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
-import gsap from 'gsap';
+// GSAP removed - using CSS animations instead
 import { useCart } from '@/contexts/CartContext';
 
 export default function CartIcon() {
@@ -13,23 +13,14 @@ export default function CartIcon() {
   useEffect(() => {
     // Animate cart icon when items are added
     if (state.itemCount > 0 && iconRef.current) {
-      gsap.to(iconRef.current, {
-        scale: 1.2,
-        duration: 0.2,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.inOut'
-      });
+      iconRef.current.classList.add('animate-bounce');
     }
   }, [state.itemCount]);
 
   useEffect(() => {
     // Animate badge when count changes
     if (badgeRef.current && state.itemCount > 0) {
-      gsap.fromTo(badgeRef.current,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' }
-      );
+      badgeRef.current.classList.add('animate-scale-in');
     }
   }, [state.itemCount]);
 
@@ -38,13 +29,7 @@ export default function CartIcon() {
     
     // Click animation
     if (iconRef.current) {
-      gsap.to(iconRef.current, {
-        scale: 0.9,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.inOut'
-      });
+      iconRef.current.classList.add('animate-pulse');
     }
   };
 

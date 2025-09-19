@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_inventory_settings_inventory_settings",
+  "info": {
+    "displayName": "Inventory Settings"
+  },
+  "options": {},
+  "attributes": {
+    "trackQuantity": {
+      "type": "boolean",
+      "default": true
+    },
+    "lowStockThreshold": {
+      "type": "biginteger",
+      "default": "5"
+    },
+    "allowBackorder": {
+      "type": "boolean",
+      "default": false
+    },
+    "quantity": {
+      "type": "biginteger",
+      "default": "0"
+    }
+  },
+  "config": {}
+}

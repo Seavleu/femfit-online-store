@@ -1,18 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef, useMemo, useCallback, useState } from 'react';
+import React, { useRef, useMemo, useCallback, useState } from 'react';
 import { Eye, ShoppingCart, Heart, Star, TrendingUp, Clock, Zap } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import LinkHover from '@/animation/LinkHover';
 import { cn } from '@/lib/utils';
 import { useCart, Product } from '@/contexts/CartContext';
 import { formatPrice } from '@/lib/currency';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface ProductCardProps {
   product: Product;
@@ -25,46 +19,7 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    if (!cardRef.current) return;
-
-    // Staggered scroll animation
-    gsap.fromTo(cardRef.current,
-      { y: 60, opacity: 0, scale: 0.95 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        delay: (index % 6) * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 90%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // Enhanced hover animations
-    const image = cardRef.current.querySelector('.product-image');
-    const overlay = cardRef.current.querySelector('.product-overlay');
-    const quickActions = cardRef.current.querySelector('.quick-actions');
-    
-    if (image && overlay && quickActions) {
-      cardRef.current.addEventListener('mouseenter', () => {
-        gsap.to(image, { scale: 1.08, duration: 0.8, ease: 'power2.out' });
-        gsap.to(overlay, { opacity: 1, duration: 0.4, ease: 'power2.out' });
-        gsap.to(quickActions, { y: 0, opacity: 1, duration: 0.5, delay: 0.1, ease: 'power2.out' });
-      });
-
-      cardRef.current.addEventListener('mouseleave', () => {
-        gsap.to(image, { scale: 1, duration: 0.8, ease: 'power2.out' });
-        gsap.to(overlay, { opacity: 0, duration: 0.3, ease: 'power2.out' });
-        gsap.to(quickActions, { y: 20, opacity: 0, duration: 0.3, ease: 'power2.out' });
-      });
-    }
-  }, [index]);
+  // CSS-based animations instead of GSAP
 
   // Memoize event handlers to prevent unnecessary re-renders
   const handleAddToCart = useCallback((e: React.MouseEvent) => {
@@ -92,7 +47,7 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
     return (
       <div
         ref={cardRef}
-        className="flex flex-col sm:flex-row gap-1 p-6 border border-gray-100 rounded-2xl hover:shadow-lg transition-all duration-300 group"
+        className="flex flex-col sm:flex-row gap-1 p-6 border border-gray-100 rounded-2xl hover:shadow-lg transition-all duration-300 group animate-fade-in-up"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -215,7 +170,7 @@ const ProductCard = React.memo(function ProductCard({ product, viewMode, index }
   return (
     <div 
       ref={cardRef} 
-      className="group cursor-pointer"
+      className="group cursor-pointer animate-fade-in-up"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

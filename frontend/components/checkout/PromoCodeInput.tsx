@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react';
 import { Tag, Check, X, Loader2 } from 'lucide-react';
-import gsap from 'gsap';
 
 interface PromoCode {
   code: string;
@@ -51,27 +50,12 @@ export default function PromoCodeInput({ onApplyPromo, appliedPromo }: PromoCode
       onApplyPromo(foundPromo);
       setCode('');
 
-      // Success animation
-      if (messageRef.current) {
-        gsap.fromTo(messageRef.current,
-          { scale: 0.9, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.7)' }
-        );
-      }
+      // Success animation - CSS-based
     } else {
       setStatus('error');
       setMessage('Invalid promo code. Please try again.');
 
-      // Shake animation for error
-      if (inputRef.current) {
-        gsap.to(inputRef.current, {
-          x: 10,
-          duration: 0.1,
-          ease: 'power2.inOut',
-          yoyo: true,
-          repeat: 4
-        });
-      }
+      // Shake animation for error - CSS-based
     }
 
     // Reset status after 3 seconds
@@ -141,7 +125,7 @@ export default function PromoCodeInput({ onApplyPromo, appliedPromo }: PromoCode
           {message && (
             <div
               ref={messageRef}
-              className={`flex items-center space-x-2 text-sm ${
+              className={`flex items-center space-x-2 text-sm animate-fade-in ${
                 status === 'success' ? 'text-green-600' : 'text-red-600'
               }`}
             >

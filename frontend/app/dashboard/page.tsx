@@ -221,7 +221,6 @@ export default function ShopperDashboard() {
               <div>
                 <div className="flex items-center space-x-2 mb-2">
                   <TrendingUp className="w-5 h-5 text-luxury-gold" />
-                  <span className="text-luxury-gold font-medium text-sm">EXCLUSIVE OFFER</span>
                 </div>
                 <h3 className="text-2xl font-playfair font-bold mb-2">
                   Get 20% Off Your Next Purchase

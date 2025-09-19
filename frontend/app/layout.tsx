@@ -1,4 +1,5 @@
 import './globals.css';
+import '../styles/custom-cursor.css';
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display, Space_Grotesk } from 'next/font/google';
 import { Providers } from './providers';

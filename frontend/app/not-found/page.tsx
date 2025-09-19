@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Home, Search } from 'lucide-react';
-import gsap from 'gsap';
 
 export default function NotFoundPage() {
   const router = useRouter();
@@ -11,40 +10,7 @@ export default function NotFoundPage() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!numberRef.current || !contentRef.current) return;
-
-    // Animate the large 404 number
-    gsap.fromTo(numberRef.current,
-      { 
-        x: -200, 
-        opacity: 0,
-        scale: 0.8
-      },
-      {
-        x: 0,
-        opacity: 0.1,
-        scale: 1,
-        duration: 1.5,
-        ease: 'power3.out',
-        delay: 0.2
-      }
-    );
-
-    // Animate the content
-    gsap.fromTo(contentRef.current.children,
-      { 
-        y: 50, 
-        opacity: 0 
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power3.out',
-        delay: 0.8
-      }
-    );
+    // Simple CSS animation will handle the styling
   }, []);
 
   return (

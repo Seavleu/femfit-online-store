@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Search, X, TrendingUp, Clock } from 'lucide-react';
-import gsap from 'gsap';
 import Link from 'next/link';
 import { products } from '@/data/products';
 import { cn } from '@/lib/utils';
@@ -24,14 +23,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   useEffect(() => {
     if (isOpen) {
-      // Animate modal in
-      if (modalRef.current) {
-        gsap.fromTo(modalRef.current,
-          { opacity: 0, y: -50 },
-          { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }
-        );
-      }
-      
       // Focus input
       setTimeout(() => {
         inputRef.current?.focus();
@@ -72,15 +63,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   }, [query]);
 
   const handleClose = () => {
-    if (modalRef.current) {
-      gsap.to(modalRef.current, {
-        opacity: 0,
-        y: -50,
-        duration: 0.3,
-        ease: 'power3.in',
-        onComplete: onClose
-      });
-    }
+    onClose();
   };
 
   const handleSearchClick = (searchTerm: string) => {
@@ -90,10 +73,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center pt-20">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-start justify-center pt-20 animate-fade-in">
       <div
         ref={modalRef}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[80vh] overflow-hidden"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 max-h-[80vh] overflow-hidden animate-scale-in"
       >
         {/* Header */}
         <div className="flex items-center p-6 border-b border-gray-100">

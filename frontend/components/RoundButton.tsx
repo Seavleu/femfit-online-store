@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Rounded from "./SquareButton";
 import { ArrowUpRight } from "lucide-react";
 
 export default function RoundButton({
@@ -19,9 +18,9 @@ export default function RoundButton({
 		<Link
 			className="small-text uppercase font-normal font-NeueMontreal"
 			href={href}>
-			<Rounded
-				className="py-[6px]"
-				backgroundColor={bgcolor}>
+			<div
+				className="py-[6px] rounded-full"
+				style={{ backgroundColor: bgcolor }}>
 				<p
 					className="z-10 px-[10px] ml-[15px] py-[6px]"
 					style={style}>
@@ -35,7 +34,7 @@ export default function RoundButton({
 						className="scale-[0] group-hover:scale-[1]"
 					/>
 				</div>
-			</Rounded>
+			</div>
 		</Link>
 	);
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import gsap from 'gsap';
+// GSAP removed - using CSS animations instead
 
 export default function AnimatedPromoBar() {
   const [currentMessage, setCurrentMessage] = useState(0);
@@ -22,22 +22,10 @@ export default function AnimatedPromoBar() {
     if (isPromoBarClosed === 'true') {
       setIsVisible(false);
     } else {
-      // Animate in on first load
+      // Add CSS animation classes
       const promoBarElement = document.querySelector('.promo-bar-container');
       if (promoBarElement) {
-        gsap.fromTo(promoBarElement, 
-          { 
-            y: -38, 
-            opacity: 0 
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            ease: 'power2.out',
-            delay: 0.2 // Small delay for a polished feel
-          }
-        );
+        promoBarElement.classList.add('animate-slide-in-down');
       }
     }
   }, []);
@@ -59,20 +47,7 @@ export default function AnimatedPromoBar() {
     
     const messageElement = document.querySelector('.promo-message');
     if (messageElement) {
-      gsap.fromTo(messageElement,
-        { 
-          opacity: 0, 
-          y: -20,
-          scale: 0.95
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: 'power3.out'
-        }
-      );
+      messageElement.classList.add('animate-fade-in');
     }
   }, [currentMessage, isVisible]);
 
@@ -80,22 +55,17 @@ export default function AnimatedPromoBar() {
   const handleClose = () => {
     setIsClosing(true);
     
-    // Animate the closing
+    // Add CSS animation classes for closing
     const promoBarElement = document.querySelector('.promo-bar-container');
     if (promoBarElement) {
-      gsap.to(promoBarElement, {
-        y: -38, // Slide up by its height
-        opacity: 0,
-        duration: 0.4,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          setIsVisible(false);
-          localStorage.setItem('promoBarClosed', 'true');
-          
-          // Dispatch custom event to notify other components
-          window.dispatchEvent(new CustomEvent('promoBarClosed'));
-        }
-      });
+      promoBarElement.classList.add('animate-slide-out-up');
+      
+      // Close after animation
+      setTimeout(() => {
+        setIsVisible(false);
+        localStorage.setItem('promoBarClosed', 'true');
+        window.dispatchEvent(new CustomEvent('promoBarClosed'));
+      }, 400);
     } else {
       // Fallback if element not found
       setIsVisible(false);

@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banner_content_types",
+  "info": {
+    "singularName": "banner-content-type",
+    "pluralName": "banner-content-types",
+    "displayName": "Banner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "link": {
+      "type": "string"
+    },
+    "buttonText": {
+      "type": "string"
+    },
+    "sortOrder": {
+      "type": "integer"
+    },
+    "bannerStatus": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "inactive"
+      ]
+    }
+  }
+}

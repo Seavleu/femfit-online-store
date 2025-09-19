@@ -45,6 +45,7 @@ body::-webkit-scrollbar {
 body {
 	box-sizing: border-box;
 	background-color: #ffffff;
+	cursor: none; /* Hide default cursor when custom cursor is active */
 }
 
 * {

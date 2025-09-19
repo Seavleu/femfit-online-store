@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import gsap from 'gsap';
 import LinkHover from '@/animation/LinkHover';
-import Button from '@/components/Button';
+import { Button } from '@/components/ui/button';
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -45,25 +44,13 @@ const collections = [
 export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isOpen && menuRef.current) {
-      gsap.fromTo(menuRef.current,
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
-      );
-      
-      gsap.fromTo('.mega-menu-item',
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, delay: 0.1, ease: 'power3.out' }
-      );
-    }
-  }, [isOpen]);
+  // CSS-based animations instead of GSAP
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="absolute top-full left-0 w-screen bg-white border-t border-gray-100 shadow-xl z-50"
+      className="absolute top-full left-0 w-screen bg-white border-t border-gray-100 shadow-xl z-50 animate-fade-in-down"
       onMouseLeave={onClose}
     >
       <div ref={menuRef} className="max-w-7xl mx-auto px-6 sm:px-8 py-12">
@@ -75,7 +62,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.map((category, index) => (
-                <div key={category.name} className="mega-menu-item group">
+                <div key={category.name} className="mega-menu-item group animate-fade-in-up">
                   <Link href={`/shop?category=${category.name}`} className="block">
                     <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
                       <img
@@ -114,7 +101,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               {collections.map((collection, index) => (
                 <div
                   key={collection.name}
-                  className="mega-menu-item block group"
+                  className="mega-menu-item block group animate-fade-in-up"
                 >
                   <div className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:border-luxury-gold transition-colors">
                     <div>
@@ -134,15 +121,16 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             </div>
 
             {/* Featured Product */}
-            <div className="mega-menu-item mt-8 p-6 bg-luxury-sand rounded-lg">
+            <div className="mega-menu-item mt-8 p-6 bg-luxury-sand rounded-lg animate-fade-in-up">
               <h4 className="font-space-grotesk font-semibold mb-2">Featured</h4>
               <p className="text-sm text-gray-600 mb-4">
                 Discover our signature collection of handcrafted luxury pieces.
               </p>
-              <Button
-                href="/shop?tags=Popular"
-                title="Shop Now"
-              />
+              <Button asChild>
+                <Link href="/shop?tags=Popular">
+                  Shop Now
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

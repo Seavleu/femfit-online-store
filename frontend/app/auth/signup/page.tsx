@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
-import gsap from 'gsap';
 import Link from 'next/link';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
+import { FormCard, PageHeader, LoadingState } from '@/components/design-system';
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -20,18 +20,7 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement>(null);
   const { signIn } = useSupabaseAuth();
-
-  useEffect(() => {
-    // Animate form on load
-    if (formRef.current) {
-      gsap.fromTo(formRef.current.children,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
-      );
-    }
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,17 +49,30 @@ export default function SignUpPage() {
     signIn('google');
   };
 
+  if (isLoading) {
+    return <LoadingState text="Creating your account..." fullScreen />;
+  }
+
   return (
     <main className="bg-white text-black min-h-screen">
       <Navigation />
       
-      <div className="max-w-md mx-auto px-6 pt-24 pb-16">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-playfair font-bold mb-4">Create Account</h1>
-          <p className="text-gray-600">Join FEMFIT for exclusive access</p>
-        </div>
-
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+      {/* Page Header */}
+      <PageHeader
+        title="Create Account"
+        description="Join FEMFIT for exclusive access to premium fashion"
+        showBackButton
+        backHref="/"
+        className="bg-white"
+      />
+      
+      <div className="max-w-md mx-auto px-6 py-12">
+        <FormCard
+          title="Sign Up"
+          description="Create your account to get started"
+          padding="lg"
+        >
+          <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
               {error}
@@ -175,13 +177,14 @@ export default function SignUpPage() {
             <span>Google</span>
           </button>
 
-          <div className="text-center text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link href="/auth/signin" className="text-black hover:text-luxury-gold transition-colors font-medium">
-              Sign in
-            </Link>
-          </div>
-        </form>
+            <div className="text-center text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link href="/auth/signin" className="text-black hover:text-luxury-gold transition-colors font-medium">
+                Sign in
+              </Link>
+            </div>
+          </form>
+        </FormCard>
       </div>
 
       <Footer />

@@ -4,13 +4,9 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Menu, X, User, Search, Heart, ShoppingBag, Bell } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import LinkHover from '@/animation/LinkHover';
-import TextHover from '@/animation/TextHover';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LinkHover, TextHover } from '@/animation';
 import CartDrawer from '@/components/cart/CartDrawer';
 import MegaMenu from '@/components/layout/MegaMenu';
-import MobileBottomNav from '@/components/layout/MobileBottomNav';
 import SearchModal from '@/components/search/SearchModal';
 import UserProfileDropdown from '@/components/auth/UserProfileDropdown';
 import LanguageToggle from '@/components/common/LanguageToggle';
@@ -20,9 +16,7 @@ import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// GSAP removed - using CSS animations instead
 
 const Navigation = React.memo(function Navigation() {
   const { user } = useSupabaseAuth();
@@ -92,105 +86,23 @@ const Navigation = React.memo(function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isScrolled]);
 
-  useEffect(() => {
-    if (navRef.current && logoRef.current) {
-      if (isScrolled) {
-        // Scrolled state - compact navbar with logo visible in center
-        gsap.to(navRef.current, {
-          height: '50px',
-          backgroundColor: 'rgba(255, 255, 255, 0.98)',
-          backdropFilter: 'blur(10px)',
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-        
-        // Show logo in navbar center - same size as menu items
-        gsap.to(logoRef.current, {
-          opacity: 1,
-          fontSize: '0.875rem',
-          fontWeight: '500',
-          duration: 0.4,
-          ease: 'power2.out'
-        });
+  // CSS-based animations instead of GSAP
+  const navClasses = cn(
+    "fixed top-0 left-0 right-0 z-40 transition-all duration-400",
+    isScrolled 
+      ? "bg-white/98 backdrop-blur-md" 
+      : isHomePage 
+        ? "bg-transparent" 
+        : "bg-white/98 backdrop-blur-md"
+  );
 
-        // Change text colors to dark
-        gsap.to('.nav-text', {
-          color: '#000000',
-          duration: 0.4,
-          ease: 'power2.out'
-        });
+  const logoClasses = cn(
+    "nav-text font-light tracking-wider transition-all duration-400",
+    isScrolled || !isHomePage ? "opacity-100" : "opacity-0"
+  );
 
-        gsap.to('.nav-icon', {
-          color: '#000000',
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-      } else {
-        // Initial state - behavior depends on page
-        if (isHomePage) {
-          // Home page - transparent navbar with large logo below
-          gsap.to(navRef.current, {
-            height: '50px',
-            backgroundColor: 'transparent',
-            backdropFilter: 'none',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-          
-          // Hide logo in navbar (it will be shown large below navbar)
-          gsap.to(logoRef.current, {
-            opacity: 0,
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-
-          // Change text colors to white
-          gsap.to('.nav-text', {
-            color: '#ffffff',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-
-          gsap.to('.nav-icon', {
-            color: '#ffffff',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-        } else {
-          // Other pages - always show logo in center
-          gsap.to(navRef.current, {
-            height: '50px',
-            backgroundColor: 'rgba(255, 255, 255, 0.98)',
-            backdropFilter: 'blur(10px)',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-          
-          // Show logo in navbar center
-          gsap.to(logoRef.current, {
-            opacity: 1,
-            fontSize: '0.875rem',
-            fontWeight: '500',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-
-          // Change text colors to dark
-          gsap.to('.nav-text', {
-            color: '#000000',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-
-          gsap.to('.nav-icon', {
-            color: '#000000',
-            duration: 0.4,
-            ease: 'power2.out'
-          });
-        }
-      }
-    }
-  }, [isScrolled, isHomePage, isPromoBarVisible]);
+  const textColor = isScrolled || !isHomePage ? "#000000" : "#ffffff";
+  const iconColor = isScrolled || !isHomePage ? "#000000" : "#ffffff";
 
   const menuItems = [
     { name: 'GO SHOPPING', type: 'sidebar' },
@@ -204,10 +116,9 @@ const Navigation = React.memo(function Navigation() {
 
       <nav 
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-40 transition-all duration-400"
+        className={navClasses}
         style={{
           height: '50px',
-          backgroundColor: 'transparent',
           marginTop: isPromoBarVisible ? '38px' : '0px' // Account for the promo bar height
         }}
       >
@@ -218,7 +129,8 @@ const Navigation = React.memo(function Navigation() {
               <button
                 onClick={() => setIsSearchOpen(true)}
                 className="nav-icon p-2 transition-colors duration-300"
-                style={{ color: '#ffffff' }}
+                style={{ color: iconColor }}
+                data-cursor-hover
               >
                 <Search className="w-4 h-4" />
               </button>
@@ -229,7 +141,8 @@ const Navigation = React.memo(function Navigation() {
                     <button
                       onClick={() => setIsSidebarOpen(true)}
                       className="nav-text text-sm font-light transition-all duration-300 tracking-wide relative hover:opacity-80"
-                      style={{ color: '#ffffff' }}
+                      style={{ color: textColor }}
+                      data-cursor-hover
                     >
                       {item.name}
                     </button>
@@ -238,7 +151,8 @@ const Navigation = React.memo(function Navigation() {
                       <Link
                         href={item.href}
                         className="nav-text text-sm font-light transition-all duration-300 tracking-wide relative hover:opacity-80"
-                        style={{ color: '#ffffff' }}
+                        style={{ color: textColor }}
+                        data-cursor-hover
                       >
                         <TextHover
                           titile1={item.name}
@@ -258,9 +172,9 @@ const Navigation = React.memo(function Navigation() {
             <div className="flex-shrink-0">
               <div 
                 ref={logoRef}
-                className="nav-text font-light tracking-wider transition-all duration-400 opacity-0"
+                className={logoClasses}
                 style={{ 
-                  color: '#ffffff',
+                  color: textColor,
                   fontSize: '0.875rem',
                 }}
               >
@@ -268,9 +182,10 @@ const Navigation = React.memo(function Navigation() {
                   href="/"
                   className="nav-text font-light tracking-wider transition-all duration-400"
                   style={{ 
-                    color: '#ffffff',
+                    color: textColor,
                     fontSize: '0.875rem',
                   }}
+                  data-cursor-hover
                 >
                   <TextHover
                     titile1="FEM & FIT"
@@ -283,22 +198,34 @@ const Navigation = React.memo(function Navigation() {
             {/* Right Side Icons */}
             <div className="hidden lg:flex items-center space-x-4">
               {/* Notification Bell */}
-              <button className="nav-icon p-2 transition-colors duration-300 relative">
+              <button 
+                className="nav-icon p-2 transition-colors duration-300 relative" 
+                style={{ color: iconColor }}
+                data-cursor-hover
+              >
                 <Bell className="w-4 h-4" />
               </button>
               
               {/* Heart/Wishlist */}
-              <button className="nav-icon p-2 transition-colors duration-300">
+              <button 
+                className="nav-icon p-2 transition-colors duration-300" 
+                style={{ color: iconColor }}
+                data-cursor-hover
+              >
                 <Heart className="w-4 h-4" />
               </button>
               
               {/* Shopping Bag/Cart */}
-              <button className="nav-icon p-2 transition-colors duration-300">
+              <button 
+                className="nav-icon p-2 transition-colors duration-300" 
+                style={{ color: iconColor }}
+                data-cursor-hover
+              >
                 <ShoppingBag className="w-4 h-4" />
               </button>
               
               {/* User Profile */}
-              <div className="nav-icon transition-colors duration-300">
+              <div className="nav-icon transition-colors duration-300" style={{ color: iconColor }}>
                 <UserProfileDropdown />
               </div>
             </div>
@@ -308,22 +235,27 @@ const Navigation = React.memo(function Navigation() {
               <button
                 onClick={() => setIsSearchOpen(true)}
                 className="nav-icon p-2 transition-colors duration-300"
+                style={{ color: iconColor }}
               >
                 <Search className="w-5 h-5" />
               </button>
-              <button className="nav-icon p-2 transition-colors duration-300">
+              <button 
+                className="nav-icon p-2 transition-colors duration-300"
+                style={{ color: iconColor }}
+              >
                 <ShoppingBag className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="nav-icon p-2 transition-colors duration-300"
+                style={{ color: iconColor }}
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
         </div>
-      </nav>
+     </nav>
 
       {/* Mobile menu */}
       <div className={cn(
@@ -357,6 +289,18 @@ const Navigation = React.memo(function Navigation() {
               </Link>
             )
           ))}
+          {/* Components Showcase - Development Link */}
+          <Link
+            href="/components-showcase"
+            className="menu-item text-lg font-medium hover:text-gray-600 transition-colors border-t pt-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <TextHover
+              titile1="Components Showcase"
+              titile2="Components Showcase"
+            />
+          </Link>
+
           {user ? (
             <div className="menu-item text-center space-y-4">
               <Link
@@ -407,8 +351,7 @@ const Navigation = React.memo(function Navigation() {
         </div>
       )}
       
-      {/* Mobile Bottom Navigation */}
-      <MobileBottomNav />
+      {/* Mobile Bottom Navigation - Removed for now */}
       
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

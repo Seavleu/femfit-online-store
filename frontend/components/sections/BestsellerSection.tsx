@@ -21,9 +21,10 @@ interface BestsellerSectionProps {
   title: string;
   products: Product[];
   onAddToCart?: (product: Product) => void;
+  productRefs?: React.RefObject<HTMLDivElement[]>;
 }
 
-export default function BestsellerSection({ title, products, onAddToCart }: BestsellerSectionProps) {
+export default function BestsellerSection({ title, products, onAddToCart, productRefs }: BestsellerSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredColor, setHoveredColor] = useState<{ [key: string]: string | null }>({});
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -79,8 +80,12 @@ export default function BestsellerSection({ title, products, onAddToCart }: Best
           className="flex space-x-1 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {products.map((product) => (
-            <div key={product.id} className="flex-shrink-0 w-64 group cursor-pointer snap-start relative">
+          {products.map((product, index) => (
+            <div 
+              key={product.id} 
+              ref={productRefs ? (el) => { if (productRefs.current) productRefs.current[index] = el! } : undefined}
+              className="flex-shrink-0 w-64 group cursor-pointer snap-start relative"
+            >
               <Link href={product.href} className="block">
                 <div className="relative aspect-[3/4] mb-3 overflow-hidden bg-white">
                   <img
